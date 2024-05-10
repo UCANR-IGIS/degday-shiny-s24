@@ -999,14 +999,22 @@ opposed to merely assigning it a different time zone) with
 <p><br />
 </p>
 <h2 id="anatomy-of-an-api-request">Anatomy of an API Request</h2>
-<p>The information in an API request is added in different places.</p>
-<p><strong>You can’t do any of this with out reading the API
-documentation!</strong></p>
-<p><br />
-</p>
 <div
 style="display:flex; justify-content:flex-start; align-items:start;">
 <div>
+<p>The information in an API request is entered in different places on
+the ‘order form’.</p>
+<p>Every API is different - <strong>you have to read the API
+documentation!</strong></p>
+</div>
+<p><!----- left pane ----></p>
+<div>
+<p><img src="images/order-form_500x640x256.png"/></p>
+</div>
+</div>
+<!----- flex container ---->
+<p><br />
+</p>
 <h3 id="base-url">Base URL</h3>
 <div class="indented2">
 <p>ex.: <code>https://api.synopticdata.com/v2</code></p>
@@ -1016,12 +1024,26 @@ style="display:flex; justify-content:flex-start; align-items:start;">
 <h3 id="url-path">URL Path</h3>
 <div class="indented2">
 <ul>
-<li>often used to select the specific rest endpoint</li>
-<li>example:<br/><span style="font-family:monospace;"><a
+<li>often used to select the specific rest endpoint:</li>
+</ul>
+</div>
+<div style="margin-left:4em;">
+<p><span style="font-family:monospace;"><a
 href="https://api.synopticdata.com/v2"
 class="uri">https://api.synopticdata.com/v2</a><span
-style="color:green; font-weight:bold;">/stations/timeseries</span></span></li>
+style="color:green; font-weight:bold;">/stations/timeseries</span></span></p>
+</div>
+<div class="indented2">
+<ul>
+<li>may also be used to reference a specific dataset:<br />
+</li>
 </ul>
+</div>
+<div style="margin-left:4em;">
+<p><span style="font-family:monospace;"><a
+href="https://api.cal-adapt.org/api"
+class="uri">https://api.cal-adapt.org/api</a><span
+style="color:green; font-weight:bold;">/series/tasmax_year_MIROC5_rcp45/events</span></span></p>
 </div>
 <p><br />
 </p>
@@ -1031,8 +1053,12 @@ style="color:green; font-weight:bold;">/stations/timeseries</span></span></li>
 <li>main search parameters</li>
 <li>get appended to the base URL</li>
 <li>limited by the maximum length of a URL</li>
+<li>example of an API URL with query parameters:</li>
 </ul>
 </div>
+<textarea rows="4" cols="40" style="wrap:hard; padding:0.2em; width:90%; margin-left:4em;">
+https://api.synopticdata.com/v2/stations/timeseries?token=a2cxxxe862c14xxxx4xxxx5xxxxcxxxx&stid=CI152&vars=air_temp,evapotranspiration,precip_accum_one_hour,soil_temp&varsoperator=and&units=english&start=202312010800&end=202401010800&obtimezone=local
+</textarea>
 <p><br />
 </p>
 <h3 id="headers">Headers</h3>
@@ -1057,19 +1083,6 @@ it)</li>
 <li>request gets sent as a POST request</li>
 </ul>
 </div>
-</div>
-<p><!----- left pane ----></p>
-<div>
-<p><img src="images/order-form_500x640x256.png"/></p>
-</div>
-</div>
-<!----- flex container ---->
-<p><br />
-</p>
-<p>Example of an API URL with query parameters:</p>
-<textarea rows="2" style="white-space: nowrap; overflow-y: hidden; padding:0.2em; width:90%; margin-left:2em;">
-https://api.synopticdata.com/v2/stations/timeseries?token=a2cxxxe862c14xxxx4xxxx5xxxxcxxxx&stid=CI152&vars=air_temp,evapotranspiration,precip_accum_one_hour,soil_temp&varsoperator=and&units=english&start=202312010800&end=202401010800&obtimezone=local
-</textarea>
 <p><br />
 </p>
 </div>
