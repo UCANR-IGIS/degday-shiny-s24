@@ -219,18 +219,23 @@ div.space_images {
 </div>
 <div class="indented2">
 <ul>
-<li>predict the development of plants and animals</li>
-<li>are widely used in crop management and research</li>
+<li>predict the development of plants and insects<br />
+</li>
+<li>varieties: degree days, growing degree days, heating &amp; cooling
+degree days<br />
+</li>
+<li>are widely used in crop management and research<br />
+</li>
 <li>every model should specify:</li>
 </ul>
 <div class="compact">
-<ul>
+<ol style="list-style-type: decimal">
 <li>what is being predicted</li>
 <li>when to start computing degree days (i.e., biofix)<br />
 </li>
-<li>what version of the degree day equation to use</li>
+<li>details about the mathematical equation to use</li>
 <li>when the predicted event will occur</li>
-</ul>
+</ol>
 </div>
 </div>
 <p><br />
@@ -279,7 +284,8 @@ for presenting the results of a degree day model in a DST</h2>
 </div>
 <p><br />
 </p>
-<h2 id="quality-starts-with-hardware">Quality starts with hardware</h2>
+<h2 id="good-data-starts-with-good-hardware">Good data starts with good
+hardware</h2>
 <div class="compact">
 <ul>
 <li>has the right sensors</li>
@@ -305,7 +311,7 @@ for presenting the results of a degree day model in a DST</h2>
 </div>
 <p><br />
 </p>
-<h2 id="sustainable">Sustainable</h2>
+<h2 id="sustainability">Sustainability</h2>
 <div class="compact">
 <ul>
 <li>affordable<br />
@@ -323,7 +329,7 @@ weather data are created equal.</h2>
 <p><br />
 </p>
 <h2 class="incremental"
-id="hourly-data-is-better-than-daily-data.">Hourly data is better than
+id="hourly-data-are-better-than-daily-data.">Hourly data are better than
 daily data.</h2>
 <p><br />
 </p>
@@ -510,12 +516,16 @@ GitHub)</li>
 </p>
 <h2 id="better-options-for-reading-your-token">Better options for
 reading your token</h2>
-<h3 id="environment-variable-recommended">Environment variable
-(<em>recommended</em>)</h3>
+<h3 id="option-1.-environment-variable-recommended">Option 1.
+Environment variable (<em>recommended</em>)</h3>
 <div class="indented2">
 <p>1. Include a line for your token in your <code>.Renviron</code>
 file:</p>
 <p><code>MY_CENSUS_KEY = '05xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx93'</code></p>
+<p><br />
+</p>
+<p><strong>Tip</strong>: you can edit <code>.Renviron</code> within
+RStudio with <code>usethis::edit_r_environ()</code></p>
 <p><br />
 </p>
 <p>2. Read it into R:</p>
@@ -525,14 +535,24 @@ file:</p>
 </div>
 <p><br />
 </p>
-<h3 id="store-it-in-an-external-file">Store it in an external file</h3>
+<h3 id="option-2.-store-it-in-an-external-file">Option 2. Store it in an
+external file</h3>
 <div class="indented2">
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>my_token <span class="ot">&lt;-</span> <span class="fu">readLines</span>(<span class="st">&quot;~/My Tokens/cimis_token.txt&quot;</span>, <span class="at">n =</span> <span class="dv">1</span>)</span></code></pre></div>
+<p>GitHub users:</p>
+<div class="compact">
+<ul>
+<li>store the token text file <strong>outside</strong> your project
+directory, and/or<br />
+</li>
+<li>add the text file to <code>.gitignore</code></li>
+</ul>
+</div>
 </div>
 <p><br />
 </p>
-<h3 id="save-it-in-your-os-credential-store">Save it in your OS
-credential store</h3>
+<h3 id="option-3.-save-it-in-your-os-credential-store">Option 3. Save it
+in your OS credential store</h3>
 <div class="indented2">
 <p>see <a href="https://keyring.r-lib.org/"><code>keyring</code></a></p>
 </div>
@@ -579,8 +599,8 @@ style="border:1px solid grey;" /></a></p>
 <div id="creating-date-time-objects"
 class="slide section level1 rmethod">
 <h1 class="rmethod">Creating Date-Time Objects</h1>
-<h2 id="convert-a-string-to-a-date-time-object">Convert a string to a
-date-time object</h2>
+<h2 id="convert-a-character-string-to-a-date-time-object">1. Convert a
+character string to a date-time object</h2>
 <div class="indented2">
 <p><strong>Challenge:</strong> Dates and times often come as text in a
 variety of formats:</p>
@@ -629,17 +649,26 @@ specify the time zone:</p>
 <p><!----- indented2 ----></p>
 <p><br />
 </p>
-<h2 id="create-a-date-time-object-from-scratch">Create a date-time
+<h2 id="create-a-date-time-object-from-scratch">2. Create a date-time
 object from scratch</h2>
-<p><code>make_date()</code> and <code>make_datetime()</code> can make
-date and date-time objects from scratch:</p>
+<div class="indented2>
+
+`make_date()` and `make_datetime()` can make date and date-time objects from scratch:
+
 <div class="indented2 indented2r">
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>st_patricks_noon_pdt_dt <span class="ot">&lt;-</span> <span class="fu">make_datetime</span>(<span class="at">year =</span> <span class="dv">2024</span>, <span class="at">month =</span> <span class="dv">3</span>, <span class="at">day =</span> <span class="dv">17</span>, </span>
-<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>                                      <span class="at">hour =</span> <span class="dv">12</span>, <span class="at">min =</span> <span class="dv">0</span>, <span class="at">sec =</span> <span class="dv">0</span>,</span>
-<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a>                                      <span class="at">tz =</span> <span class="st">&quot;America/Los_Angeles&quot;</span>)</span>
-<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a></span>
-<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a>st_patricks_noon_pdt_dt</span></code></pre></div>
-<pre><code>## [1] &quot;2024-03-17 12:00:00 PDT&quot;</code></pre>
+
+```r
+st_patricks_noon_pdt_dt <- make_datetime(year = 2024, month = 3, day = 17, 
+                                      hour = 12, min = 0, sec = 0,
+                                      tz = "America/Los_Angeles")
+
+st_patricks_noon_pdt_dt
+```
+
+```
+## [1] "2024-03-17 12:00:00 PDT"
+```
+</div>
 </div>
 <p><br />
 </p>
@@ -649,14 +678,14 @@ date and date-time objects from scratch:</p>
 <h2 id="how-to-specify-a-time-zone">How to specify a time zone</h2>
 <p>Time zones have <strong>standardized names</strong>. Example:</p>
 <div class="indented2 indented2r">
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="fu">Sys.timezone</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="fu">Sys.timezone</span>()</span></code></pre></div>
 <pre><code>## [1] &quot;America/Los_Angeles&quot;</code></pre>
 </div>
 <p><br />
 </p>
 <p>All time zone names:</p>
 <div class="indented2 indented2r">
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="fu">OlsonNames</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="fu">OlsonNames</span>()</span></code></pre></div>
 <pre><code>##   [1] &quot;Africa/Abidjan&quot;                   &quot;Africa/Accra&quot;                    
 ##   [3] &quot;Africa/Addis_Ababa&quot;               &quot;Africa/Algiers&quot;                  
 ##   [5] &quot;Africa/Asmara&quot;                    &quot;Africa/Asmera&quot;                   
@@ -966,7 +995,7 @@ values to other time zones</h2>
 opposed to merely assigning it a different time zone) with
 <code>with_tz()</code>:</p>
 <div class="indented2 indented2r">
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a>st_patricks_noon_pdt_dt <span class="sc">|&gt;</span>  <span class="fu">with_tz</span>(<span class="st">&quot;UTC&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>st_patricks_noon_pdt_dt <span class="sc">|&gt;</span>  <span class="fu">with_tz</span>(<span class="st">&quot;UTC&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;2024-03-17 19:00:00 UTC&quot;</code></pre>
 </div>
 <p><br />
@@ -976,13 +1005,13 @@ opposed to merely assigning it a different time zone) with
 <h1 class="rmethod">Date Parts</h1>
 <h2 id="extracting-date-parts">Extracting Date Parts</h2>
 <div class="indented2 indented2r">
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a>st_patricks_noon_pdt_dt <span class="sc">|&gt;</span> lubridate<span class="sc">::</span><span class="fu">month</span>()</span>
-<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a></span>
-<span id="cb19-3"><a href="#cb19-3" tabindex="-1"></a>st_patricks_noon_pdt_dt <span class="sc">|&gt;</span> lubridate<span class="sc">::</span><span class="fu">day</span>()</span>
-<span id="cb19-4"><a href="#cb19-4" tabindex="-1"></a></span>
-<span id="cb19-5"><a href="#cb19-5" tabindex="-1"></a>st_patricks_noon_pdt_dt <span class="sc">|&gt;</span> lubridate<span class="sc">::</span><span class="fu">year</span>()</span>
-<span id="cb19-6"><a href="#cb19-6" tabindex="-1"></a></span>
-<span id="cb19-7"><a href="#cb19-7" tabindex="-1"></a>st_patricks_noon_pdt_dt <span class="sc">|&gt;</span> lubridate<span class="sc">::</span><span class="fu">yday</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a>st_patricks_noon_pdt_dt <span class="sc">|&gt;</span> lubridate<span class="sc">::</span><span class="fu">month</span>()</span>
+<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" tabindex="-1"></a>st_patricks_noon_pdt_dt <span class="sc">|&gt;</span> lubridate<span class="sc">::</span><span class="fu">day</span>()</span>
+<span id="cb17-4"><a href="#cb17-4" tabindex="-1"></a></span>
+<span id="cb17-5"><a href="#cb17-5" tabindex="-1"></a>st_patricks_noon_pdt_dt <span class="sc">|&gt;</span> lubridate<span class="sc">::</span><span class="fu">year</span>()</span>
+<span id="cb17-6"><a href="#cb17-6" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" tabindex="-1"></a>st_patricks_noon_pdt_dt <span class="sc">|&gt;</span> lubridate<span class="sc">::</span><span class="fu">yday</span>()</span></code></pre></div>
 <pre><code>## [1] 3
 ## [1] 17
 ## [1] 2024
@@ -994,25 +1023,18 @@ opposed to merely assigning it a different time zone) with
 <div id="api-requests" class="slide section level1">
 <h1>API Requests</h1>
 <div class="centerme">
-<p><img src="images/api-call-overview_400x620x256.png" /></p>
+<p><img src="images/api-call-overview-horiz_846x316x256.png" /></p>
 </div>
 <p><br />
 </p>
+<p><br />
+</p>
 <h2 id="anatomy-of-an-api-request">Anatomy of an API Request</h2>
-<div
-style="display:flex; justify-content:flex-start; align-items:start;">
-<div>
+<p><img src="images/order-form_300x380x256.png" style="width:300px; height:380px; float:right;"/></p>
 <p>The information in an API request is entered in different places on
 the ‘order form’.</p>
 <p>Every API is different - <strong>you have to read the API
 documentation!</strong></p>
-</div>
-<p><!----- left pane ----></p>
-<div>
-<p><img src="images/order-form_500x640x256.png"/></p>
-</div>
-</div>
-<!----- flex container ---->
 <p><br />
 </p>
 <h3 id="base-url">Base URL</h3>
@@ -1035,7 +1057,7 @@ style="color:green; font-weight:bold;">/stations/timeseries</span></span></p>
 </div>
 <div class="indented2">
 <ul>
-<li>may also be used to reference a specific dataset:<br />
+<li>the URL path can also be used to reference a specific dataset:<br />
 </li>
 </ul>
 </div>
@@ -1056,9 +1078,47 @@ style="color:green; font-weight:bold;">/series/tasmax_year_MIROC5_rcp45/events</
 <li>example of an API URL with query parameters:</li>
 </ul>
 </div>
+<p><br />
+</p>
+<!-----------------
 <textarea rows="4" cols="40" style="wrap:hard; padding:0.2em; width:90%; margin-left:4em;">
 https://api.synopticdata.com/v2/stations/timeseries?token=a2cxxxe862c14xxxx4xxxx5xxxxcxxxx&stid=CI152&vars=air_temp,evapotranspiration,precip_accum_one_hour,soil_temp&varsoperator=and&units=english&start=202312010800&end=202401010800&obtimezone=local
 </textarea>
+--------------->
+<style type="text/css">
+span.green {
+  color:green;
+}
+span.purple {
+  color:#7570b3;
+}
+span.orange {
+  color:orange;
+}
+span.blue {
+  color:#386cb0;
+}
+span.red {
+  color:#f0027f;
+}
+span.brown {
+  color:#bf5b17;
+}
+
+</style>
+<p style="font-family:monospace; font-size:80%; margin-left:4em; overflow-wrap: break-word;">
+<a href="https://api.synopticdata.com/v2/"
+class="uri">https://api.synopticdata.com/v2/</a><span
+class="green">stations/timeseries</span>?<span
+class="purple">token=a2cxxxe862c14xxxx4xxxx5xxxxcxxxx</span>&amp;<span
+class="orange">stid=CI152</span>&amp;<span
+class="blue">vars=air_temp,evapotranspiration,precip_accum_one_hour,soil_temp</span>&amp;<span
+class="red">varsoperator=and</span>&amp;<span
+class="brown">units=english</span>&amp;<span
+class="purple">start=202312010800</span>&amp;<span
+class="orange">end=202401010800</span>&amp;<span
+class="blue">obtimezone=local</span>
+</p>
 <p><br />
 </p>
 <h3 id="headers">Headers</h3>
@@ -1139,16 +1199,16 @@ it, and return a request object.</p>
 </p>
 <p>Example:</p>
 <div class="indented2 indented2r">
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="fu">library</span>(httr2)</span>
-<span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a></span>
-<span id="cb21-3"><a href="#cb21-3" tabindex="-1"></a>sac_midcentury_req <span class="ot">&lt;-</span> <span class="fu">request</span>(<span class="st">&quot;https://api.cal-adapt.org/api/series&quot;</span>) <span class="sc">|&gt;</span></span>
-<span id="cb21-4"><a href="#cb21-4" tabindex="-1"></a>  <span class="fu">req_user_agent</span>(<span class="st">&quot;oski@berkeley.edu&quot;</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb21-5"><a href="#cb21-5" tabindex="-1"></a>  <span class="fu">req_url_path_append</span>(<span class="st">&quot;tasmax_year_MIROC5_rcp45/events&quot;</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb21-6"><a href="#cb21-6" tabindex="-1"></a>  <span class="fu">req_url_query</span>(<span class="at">g =</span> <span class="st">&quot;POINT (-121.4687 38.5938)&quot;</span>,</span>
-<span id="cb21-7"><a href="#cb21-7" tabindex="-1"></a>                <span class="at">start =</span> <span class="st">&quot;2040-01-01&quot;</span>, </span>
-<span id="cb21-8"><a href="#cb21-8" tabindex="-1"></a>                <span class="at">end =</span> <span class="st">&quot;2070-12-31&quot;</span>)</span>
-<span id="cb21-9"><a href="#cb21-9" tabindex="-1"></a></span>
-<span id="cb21-10"><a href="#cb21-10" tabindex="-1"></a>sac_midcentury_req</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a><span class="fu">library</span>(httr2)</span>
+<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" tabindex="-1"></a>sac_midcentury_req <span class="ot">&lt;-</span> <span class="fu">request</span>(<span class="st">&quot;https://api.cal-adapt.org/api/series&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb19-4"><a href="#cb19-4" tabindex="-1"></a>  <span class="fu">req_user_agent</span>(<span class="st">&quot;oski@berkeley.edu&quot;</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb19-5"><a href="#cb19-5" tabindex="-1"></a>  <span class="fu">req_url_path_append</span>(<span class="st">&quot;tasmax_year_MIROC5_rcp45/events&quot;</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb19-6"><a href="#cb19-6" tabindex="-1"></a>  <span class="fu">req_url_query</span>(<span class="at">g =</span> <span class="st">&quot;POINT (-121.4687 38.5938)&quot;</span>,</span>
+<span id="cb19-7"><a href="#cb19-7" tabindex="-1"></a>                <span class="at">start =</span> <span class="st">&quot;2040-01-01&quot;</span>, </span>
+<span id="cb19-8"><a href="#cb19-8" tabindex="-1"></a>                <span class="at">end =</span> <span class="st">&quot;2070-12-31&quot;</span>)</span>
+<span id="cb19-9"><a href="#cb19-9" tabindex="-1"></a></span>
+<span id="cb19-10"><a href="#cb19-10" tabindex="-1"></a>sac_midcentury_req</span></code></pre></div>
 <pre><code>## &lt;httr2_request&gt;</code></pre>
 <pre><code>## GET
 ## https://api.cal-adapt.org/api/series/tasmax_year_MIROC5_rcp45/events?g=POINT%20%28-121.4687%2038.5938%29&amp;start=2040-01-01&amp;end=2070-12-31</code></pre>
@@ -1161,7 +1221,7 @@ it, and return a request object.</p>
 <h2 id="sending-the-request">Sending the request</h2>
 <p>Before you send a request, it’s a good idea to do a dry run:</p>
 <div class="indented2 indented2r">
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a>sac_midcentury_req <span class="sc">|&gt;</span> <span class="fu">req_dry_run</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a>sac_midcentury_req <span class="sc">|&gt;</span> <span class="fu">req_dry_run</span>()</span></code></pre></div>
 <pre><code>## GET /api/series/tasmax_year_MIROC5_rcp45/events?g=POINT%20%28-121.4687%2038.5938%29&amp;start=2040-01-01&amp;end=2070-12-31 HTTP/1.1
 ## Host: api.cal-adapt.org
 ## User-Agent: oski@berkeley.edu
@@ -1172,8 +1232,8 @@ it, and return a request object.</p>
 </p>
 <p>If everything looks good, send it:</p>
 <div class="indented2 indented2r">
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a>sac_midcentury_resp <span class="ot">&lt;-</span> sac_midcentury_req <span class="sc">|&gt;</span> </span>
-<span id="cb29-2"><a href="#cb29-2" tabindex="-1"></a>  <span class="fu">req_perform</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a>sac_midcentury_resp <span class="ot">&lt;-</span> sac_midcentury_req <span class="sc">|&gt;</span> </span>
+<span id="cb27-2"><a href="#cb27-2" tabindex="-1"></a>  <span class="fu">req_perform</span>()</span></code></pre></div>
 </div>
 <p><br />
 </p>
@@ -1183,7 +1243,7 @@ Firewall to let RStudio / R access the internet</p>
 </p>
 <h2 id="inspect-the-response">Inspect the response</h2>
 <div class="indented2 indented2r">
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" tabindex="-1"></a>sac_midcentury_resp</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a>sac_midcentury_resp</span></code></pre></div>
 <pre><code>## &lt;httr2_response&gt;</code></pre>
 <pre><code>## GET
 ## https://api.cal-adapt.org/api/series/tasmax_year_MIROC5_rcp45/events/?g=POINT%20%28-121.4687%2038.5938%29&amp;start=2040-01-01&amp;end=2070-12-31</code></pre>
@@ -1198,8 +1258,8 @@ Firewall to let RStudio / R access the internet</p>
 <h1 class="rmethod">Parsing the Response</h1>
 <p>Check the status:</p>
 <div class="indented2 indented2r">
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" tabindex="-1"></a>sac_midcentury_resp <span class="sc">|&gt;</span> <span class="fu">resp_status</span>()</span>
-<span id="cb36-2"><a href="#cb36-2" tabindex="-1"></a>sac_midcentury_resp <span class="sc">|&gt;</span> <span class="fu">resp_status_desc</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" tabindex="-1"></a>sac_midcentury_resp <span class="sc">|&gt;</span> <span class="fu">resp_status</span>()</span>
+<span id="cb34-2"><a href="#cb34-2" tabindex="-1"></a>sac_midcentury_resp <span class="sc">|&gt;</span> <span class="fu">resp_status_desc</span>()</span></code></pre></div>
 <pre><code>## [1] 200
 ## [1] &quot;OK&quot;</code></pre>
 </div>
@@ -1207,10 +1267,10 @@ Firewall to let RStudio / R access the internet</p>
 </p>
 <p>View all headers:</p>
 <div class="indented2 indented2r">
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" tabindex="-1"></a>sac_midcentury_resp <span class="sc">|&gt;</span> <span class="fu">resp_headers</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" tabindex="-1"></a>sac_midcentury_resp <span class="sc">|&gt;</span> <span class="fu">resp_headers</span>()</span></code></pre></div>
 <pre><code>## &lt;httr2_headers&gt;</code></pre>
 <pre><code>## Server: nginx
-## Date: Fri, 10 May 2024 15:52:18 GMT
+## Date: Tue, 21 May 2024 00:04:32 GMT
 ## Content-Type: application/json; charset=utf-8
 ## Transfer-Encoding: chunked
 ## Connection: keep-alive
@@ -1218,7 +1278,7 @@ Firewall to let RStudio / R access the internet</p>
 ## Vary: Accept
 ## Allow: GET, POST, HEAD, OPTIONS
 ## X-Frame-Options: SAMEORIGIN
-## Expires: Sun, 09 Jun 2024 13:41:19 GMT
+## Expires: Thu, 20 Jun 2024 00:04:32 GMT
 ## Cache-Control: max-age=2592000
 ## Access-Control-Allow-Origin: *
 ## Access-Control-Allow-Methods: GET, POST, OPTIONS
@@ -1230,10 +1290,10 @@ Firewall to let RStudio / R access the internet</p>
 </p>
 <p>Extract the body as a list:</p>
 <div class="indented2 indented2r">
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" tabindex="-1"></a>sac_midcentury_lst <span class="ot">&lt;-</span> sac_midcentury_resp <span class="sc">|&gt;</span> <span class="fu">resp_body_json</span>()</span>
-<span id="cb41-2"><a href="#cb41-2" tabindex="-1"></a></span>
-<span id="cb41-3"><a href="#cb41-3" tabindex="-1"></a><span class="fu">str</span>(sac_midcentury_lst, <span class="dv">1</span>)</span>
-<span id="cb41-4"><a href="#cb41-4" tabindex="-1"></a><span class="do">## View(sac_midcentury_lst)</span></span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" tabindex="-1"></a>sac_midcentury_lst <span class="ot">&lt;-</span> sac_midcentury_resp <span class="sc">|&gt;</span> <span class="fu">resp_body_json</span>()</span>
+<span id="cb39-2"><a href="#cb39-2" tabindex="-1"></a></span>
+<span id="cb39-3"><a href="#cb39-3" tabindex="-1"></a><span class="fu">str</span>(sac_midcentury_lst, <span class="dv">1</span>)</span>
+<span id="cb39-4"><a href="#cb39-4" tabindex="-1"></a><span class="do">## View(sac_midcentury_lst)</span></span></code></pre></div>
 <pre><code>## List of 3
 ##  $ name : chr &quot;tasmax_year_MIROC5_rcp45&quot;
 ##  $ index:List of 31
@@ -1243,16 +1303,16 @@ Firewall to let RStudio / R access the internet</p>
 </p>
 <p>Convert the list to a data frame:</p>
 <div class="indented2 indented2r">
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" tabindex="-1"></a>sac_midcentury_tbl <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb43-2"><a href="#cb43-2" tabindex="-1"></a>  <span class="at">slug =</span> <span class="st">&quot;tasmax_year_MIROC5_rcp45&quot;</span>,</span>
-<span id="cb43-3"><a href="#cb43-3" tabindex="-1"></a>  <span class="at">var =</span> <span class="st">&quot;tasmax&quot;</span>,</span>
-<span id="cb43-4"><a href="#cb43-4" tabindex="-1"></a>  <span class="at">gcm =</span> <span class="st">&quot;MIROC5&quot;</span>,</span>
-<span id="cb43-5"><a href="#cb43-5" tabindex="-1"></a>  <span class="at">scenario =</span> <span class="st">&quot;rcp45&quot;</span>,</span>
-<span id="cb43-6"><a href="#cb43-6" tabindex="-1"></a>  <span class="at">year =</span> sac_midcentury_lst<span class="sc">$</span>index <span class="sc">|&gt;</span> <span class="fu">unlist</span>() <span class="sc">|&gt;</span> <span class="fu">ymd_hms</span>() <span class="sc">|&gt;</span> <span class="fu">year</span>(),</span>
-<span id="cb43-7"><a href="#cb43-7" tabindex="-1"></a>  <span class="at">tasmax_c =</span> (sac_midcentury_lst<span class="sc">$</span>data <span class="sc">|&gt;</span> <span class="fu">unlist</span>()) <span class="sc">-</span> <span class="fl">273.15</span></span>
-<span id="cb43-8"><a href="#cb43-8" tabindex="-1"></a>)</span>
-<span id="cb43-9"><a href="#cb43-9" tabindex="-1"></a></span>
-<span id="cb43-10"><a href="#cb43-10" tabindex="-1"></a><span class="fu">head</span>(sac_midcentury_tbl)</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" tabindex="-1"></a>sac_midcentury_tbl <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb41-2"><a href="#cb41-2" tabindex="-1"></a>  <span class="at">slug =</span> <span class="st">&quot;tasmax_year_MIROC5_rcp45&quot;</span>,</span>
+<span id="cb41-3"><a href="#cb41-3" tabindex="-1"></a>  <span class="at">var =</span> <span class="st">&quot;tasmax&quot;</span>,</span>
+<span id="cb41-4"><a href="#cb41-4" tabindex="-1"></a>  <span class="at">gcm =</span> <span class="st">&quot;MIROC5&quot;</span>,</span>
+<span id="cb41-5"><a href="#cb41-5" tabindex="-1"></a>  <span class="at">scenario =</span> <span class="st">&quot;rcp45&quot;</span>,</span>
+<span id="cb41-6"><a href="#cb41-6" tabindex="-1"></a>  <span class="at">year =</span> sac_midcentury_lst<span class="sc">$</span>index <span class="sc">|&gt;</span> <span class="fu">unlist</span>() <span class="sc">|&gt;</span> <span class="fu">ymd_hms</span>() <span class="sc">|&gt;</span> <span class="fu">year</span>(),</span>
+<span id="cb41-7"><a href="#cb41-7" tabindex="-1"></a>  <span class="at">tasmax_c =</span> (sac_midcentury_lst<span class="sc">$</span>data <span class="sc">|&gt;</span> <span class="fu">unlist</span>()) <span class="sc">-</span> <span class="fl">273.15</span></span>
+<span id="cb41-8"><a href="#cb41-8" tabindex="-1"></a>)</span>
+<span id="cb41-9"><a href="#cb41-9" tabindex="-1"></a></span>
+<span id="cb41-10"><a href="#cb41-10" tabindex="-1"></a><span class="fu">head</span>(sac_midcentury_tbl)</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 6
 ##   slug                     var    gcm    scenario  year tasmax_c
 ##   &lt;chr&gt;                    &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;    &lt;dbl&gt;    &lt;dbl&gt;
@@ -1279,350 +1339,55 @@ Makes it easy to
 
 --------------------->
 </div>
-<div id="notebook-time" class="slide section level1">
-<h1>Notebook Time!</h1>
+<div id="notebook-1-compute-degree-days" class="slide section level1">
+<h1>Notebook #1: Compute Degree Days</h1>
+<h2 id="posit-cloud-users">Posit Cloud users</h2>
+<div class="indented2">
+<p><a
+href="https://posit.cloud/content/8147278">https://posit.cloud/content/8147278</a></p>
+</div>
+<div class="indented2">
+<p>Click ‘Save a permanent copy’</p>
+<p>Done!</p>
+</div>
 <p><br />
 </p>
-</div>
-<div id="openmeteo" class="slide section level1 weatherapi-mod">
-<h1 class="weatherapi-mod">OpenMeteo</h1>
-<p><a href="https://open-meteo.com/"
-class="uri">https://open-meteo.com/</a></p>
-<h2 id="rest-endpoints">Rest EndPoints</h2>
-<div class="indented1">
-<h3 id="weather-forecast-api"><a
-href="https://open-meteo.com/en/docs">Weather Forecast API</a></h3>
+<h2 id="rstudio-desktop-users">RStudio Desktop users</h2>
+<h3 id="download-rstudio-project">1. Download RStudio project</h3>
+<div class="indented2">
+<p>Download a RStudio project with all the exercises and data:</p>
+<h4 id="option-1">Option 1</h4>
+<div class="indented2">
 <div class="compact">
-<ul>
-<li>Forecasts for up to 16 days (default = 7)</li>
-<li>Hourly and daily data available</li>
-<li>Auto-select weather model for your region (default for USA is the
-NOAA GFS + HRRR)</li>
-</ul>
-</div>
-<h3 id="historic-weather-api"><a
-href="https://open-meteo.com/en/docs/historical-weather-api">Historic
-Weather API</a></h3>
-<div class="compact">
-<ul>
-<li>data back to 1940<br />
+<ol style="list-style-type: decimal">
+<li>download zip file: <a
+href="https://bit.ly/degday-weather-wrkshp-rproj-s24"
+class="uri">https://bit.ly/degday-weather-wrkshp-rproj-s24</a><br />
 </li>
-<li>~5-day delay in the data<br />
+<li>unzip<br />
 </li>
-</ul>
-</div>
-<h3 id="other-apis">Other APIs</h3>
-<div class="compact">
-<ul>
-<li>Air Quality</li>
-<li>Marine Forecast</li>
-<li>Climate Change Forecast</li>
-<li>Geocode</li>
-<li>River Discharge</li>
-</ul>
+<li>open <tt>degday-shiny-s24.Rproj</tt></li>
+</ol>
 </div>
 </div>
-<p><br />
-</p>
-<h2 id="access">Access</h2>
-<div class="indented1">
-<p>No API key is required:</p>
-<div class="compact">
-<ul>
-<li>for non-commercial use<br />
-</li>
-<li>less than 10,000 daily API calls</li>
-</ul>
-</div>
-<p>R package: <code>openmeteo</code></p>
-</div>
-<p><!----- class = indented1 ----></p>
-<p><br />
-</p>
-</div>
-<div id="cal-adapt" class="slide section level1 weatherapi-mod">
-<h1 class="weatherapi-mod">Cal-Adapt</h1>
-<p><a href="https://cal-adapt.org/"
-class="uri">https://cal-adapt.org/</a></p>
-<p>Downscaled modeled climate data for western USA (1950 - 2099)</p>
-<p>Gridded observed data: Livneh and gridMet</p>
-<div class="centerme">
-<p><a href="https://ucanr-igis.github.io/caladaptr/" target="_blank"
-rel="noopener"><img
-src="./images/caladaptr-hexlogo_173x200.gif" /></a><br/><a
-href="https://ucanr-igis.github.io/caladaptr/"
-class="uri">https://ucanr-igis.github.io/caladaptr/</a></p>
+<h4 id="option-2">Option 2</h4>
+<div class="indented2">
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" tabindex="-1"></a><span class="do">## Download and open on desktop</span></span>
+<span id="cb43-2"><a href="#cb43-2" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">use_course</span>(<span class="st">&quot;https://bit.ly/degday-weather-wrkshp-rproj-s24&quot;</span>)</span>
+<span id="cb43-3"><a href="#cb43-3" tabindex="-1"></a></span>
+<span id="cb43-4"><a href="#cb43-4" tabindex="-1"></a><span class="do">## Download to a specific location </span></span>
+<span id="cb43-5"><a href="#cb43-5" tabindex="-1"></a><span class="do">## usethis::use_course(&quot;https://bit.ly/degday-weather-wrkshp-rproj-s24&quot;, destdir = &quot;c:/workshops&quot;)</span></span></code></pre></div>
 </div>
 <p><br />
 </p>
 </div>
-<div id="time-filtering" class="slide section level1 rmethod">
-<h1 class="rmethod">Time Filtering</h1>
-<h2 id="filter-based-on-a-date">Filter based on a date</h2>
-<p>First, make sure the date column is actually contains Date objects
-(or <code>POSIXct</code> for date-time values), as opposed to text:</p>
-<div class="indented2 indented2r">
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" tabindex="-1"></a>espartoa_tbl <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">&quot;extdata/espartoa-weather-2020.csv&quot;</span>, <span class="at">package =</span> <span class="st">&quot;degday&quot;</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb45-2"><a href="#cb45-2" tabindex="-1"></a>  <span class="fu">read.csv</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb45-3"><a href="#cb45-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">date =</span> <span class="fu">as.Date</span>(date)) </span>
-<span id="cb45-4"><a href="#cb45-4" tabindex="-1"></a></span>
-<span id="cb45-5"><a href="#cb45-5" tabindex="-1"></a>espartoa_tbl <span class="sc">|&gt;</span> <span class="fu">head</span>()</span></code></pre></div>
-<pre><code>##     station       date tmin tmax
-## 1 Esparto.A 2020-01-01   38   55
-## 2 Esparto.A 2020-01-02   36   67
-## 3 Esparto.A 2020-01-03   33   59
-## 4 Esparto.A 2020-01-04   37   59
-## 5 Esparto.A 2020-01-05   38   63
-## 6 Esparto.A 2020-01-06   36   58</code></pre>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" tabindex="-1"></a><span class="fu">class</span>(espartoa_tbl<span class="sc">$</span>date)</span></code></pre></div>
-<pre><code>## [1] &quot;Date&quot;</code></pre>
+<h3 id="install-the-required-packages-see">2. Install the required
+packages, see:</h3>
+<div class="indented2">
+<p><tt>/scripts/install_packages.R</tt></p>
 </div>
 <p><br />
 </p>
-<p>Filtering a data frame based on the date can be with
-<code>dplyr::filter()</code>. Just make sure the comparison values are
-also dates.</p>
-<p>For example, we can extract the values between St Patrick’s Day and
-Tax Day (April 15) in 2020:</p>
-<div class="indented2 indented2r">
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" tabindex="-1"></a>espartoa_tbl <span class="sc">|&gt;</span> <span class="fu">filter</span>(date <span class="sc">&gt;=</span> <span class="fu">as.Date</span>(<span class="st">&quot;2020-03-17&quot;</span>), date <span class="sc">&lt;=</span> <span class="fu">as.Date</span>(<span class="st">&quot;2020-04-15&quot;</span>))</span></code></pre></div>
-<pre><code>##      station       date tmin tmax
-## 1  Esparto.A 2020-03-17   41   55
-## 2  Esparto.A 2020-03-18   43   53
-## 3  Esparto.A 2020-03-19   36   61
-## 4  Esparto.A 2020-03-20   35   64
-## 5  Esparto.A 2020-03-21   39   66
-## 6  Esparto.A 2020-03-22   40   69
-## 7  Esparto.A 2020-03-23   45   65
-## 8  Esparto.A 2020-03-24   40   58
-## 9  Esparto.A 2020-03-25   36   57
-## 10 Esparto.A 2020-03-26   34   61
-## 11 Esparto.A 2020-03-27   35   63
-## 12 Esparto.A 2020-03-28   46   58
-## 13 Esparto.A 2020-03-29   46   62
-## 14 Esparto.A 2020-03-30   45   67
-## 15 Esparto.A 2020-03-31   52   72
-## 16 Esparto.A 2020-04-01   46   66
-## 17 Esparto.A 2020-04-02   46   69
-## 18 Esparto.A 2020-04-03   40   67
-## 19 Esparto.A 2020-04-04   42   57
-## 20 Esparto.A 2020-04-05   45   56
-## 21 Esparto.A 2020-04-06   40   59
-## 22 Esparto.A 2020-04-07   42   66
-## 23 Esparto.A 2020-04-08   44   64
-## 24 Esparto.A 2020-04-09   49   64
-## 25 Esparto.A 2020-04-10   51   73
-## 26 Esparto.A 2020-04-11   47   72
-## 27 Esparto.A 2020-04-12   47   75
-## 28 Esparto.A 2020-04-13   48   77
-## 29 Esparto.A 2020-04-14   51   80
-## 30 Esparto.A 2020-04-15   43   81</code></pre>
-</div>
-<p><br />
-</p>
-<h2 id="filtering-with-date-parts">Filtering with Date Parts</h2>
-<p>Extract the in June, July, and August:</p>
-<div class="indented2 indented2r">
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" tabindex="-1"></a>espartoa_tbl <span class="sc">|&gt;</span> </span>
-<span id="cb51-2"><a href="#cb51-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">month</span>(date) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>))</span></code></pre></div>
-<pre><code>##      station       date tmin tmax
-## 1  Esparto.A 2020-06-01   60   86
-## 2  Esparto.A 2020-06-02   60   95
-## 3  Esparto.A 2020-06-03   63  100
-## 4  Esparto.A 2020-06-04   60   98
-## 5  Esparto.A 2020-06-05   58   82
-## 6  Esparto.A 2020-06-06   58   78
-## 7  Esparto.A 2020-06-07   57   88
-## 8  Esparto.A 2020-06-08   58   83
-## 9  Esparto.A 2020-06-09   55   90
-## 10 Esparto.A 2020-06-10   63   96
-## 11 Esparto.A 2020-06-11   59   93
-## 12 Esparto.A 2020-06-12   58   76
-## 13 Esparto.A 2020-06-13   55   77
-## 14 Esparto.A 2020-06-14   59   84
-## 15 Esparto.A 2020-06-15   65   85
-## 16 Esparto.A 2020-06-16   60   81
-## 17 Esparto.A 2020-06-17   64   87
-## 18 Esparto.A 2020-06-18   59   94
-## 19 Esparto.A 2020-06-19   58   96
-## 20 Esparto.A 2020-06-20   56   91
-## 21 Esparto.A 2020-06-21   59   93
-## 22 Esparto.A 2020-06-22   59   99
-## 23 Esparto.A 2020-06-23   64   98
-## 24 Esparto.A 2020-06-24   62   99
-## 25 Esparto.A 2020-06-25   60   95
-## 26 Esparto.A 2020-06-26   59   95
-## 27 Esparto.A 2020-06-27   60   95
-## 28 Esparto.A 2020-06-28   59   87
-## 29 Esparto.A 2020-06-29   65   88
-## 30 Esparto.A 2020-06-30   60   91
-## 31 Esparto.A 2020-07-01   55   92
-## 32 Esparto.A 2020-07-02   55   88
-## 33 Esparto.A 2020-07-03   62   96
-## 34 Esparto.A 2020-07-04   53   93
-## 35 Esparto.A 2020-07-05   58   95
-## 36 Esparto.A 2020-07-06   56   90
-## 37 Esparto.A 2020-07-07   53   89
-## 38 Esparto.A 2020-07-08   65   94
-## 39 Esparto.A 2020-07-09   61   98
-## 40 Esparto.A 2020-07-10   60   98
-## 41 Esparto.A 2020-07-11   59  103
-## 42 Esparto.A 2020-07-12   59  101
-## 43 Esparto.A 2020-07-13   61   92
-## 44 Esparto.A 2020-07-14   58   92
-## 45 Esparto.A 2020-07-15   58   96
-## 46 Esparto.A 2020-07-16   62   94
-## 47 Esparto.A 2020-07-17   61   93
-## 48 Esparto.A 2020-07-18   60   96
-## 49 Esparto.A 2020-07-19   61   97
-## 50 Esparto.A 2020-07-20   60   96
-## 51 Esparto.A 2020-07-21   59   93
-## 52 Esparto.A 2020-07-22   60   96
-## 53 Esparto.A 2020-07-23   56   94
-## 54 Esparto.A 2020-07-24   58   94
-## 55 Esparto.A 2020-07-25   55   95
-## 56 Esparto.A 2020-07-26   60  100
-## 57 Esparto.A 2020-07-27   61  101
-## 58 Esparto.A 2020-07-28   59  100
-## 59 Esparto.A 2020-07-29   60   96
-## 60 Esparto.A 2020-07-30   60   96
-## 61 Esparto.A 2020-07-31   52   97
-## 62 Esparto.A 2020-08-01   53   94
-## 63 Esparto.A 2020-08-02   58   98
-## 64 Esparto.A 2020-08-03   60   99
-## 65 Esparto.A 2020-08-04   58   95
-## 66 Esparto.A 2020-08-05   59   95
-## 67 Esparto.A 2020-08-06   56   90
-## 68 Esparto.A 2020-08-07   61   96
-## 69 Esparto.A 2020-08-08   62   95
-## 70 Esparto.A 2020-08-09   62   98
-## 71 Esparto.A 2020-08-10   64   99
-## 72 Esparto.A 2020-08-11   61   93
-## 73 Esparto.A 2020-08-12   57   97
-## 74 Esparto.A 2020-08-13   60   97
-## 75 Esparto.A 2020-08-14   71  103
-## 76 Esparto.A 2020-08-15   68  107
-## 77 Esparto.A 2020-08-16   60   96
-## 78 Esparto.A 2020-08-17   59   95
-## 79 Esparto.A 2020-08-18   71  102
-## 80 Esparto.A 2020-08-19   71   97
-## 81 Esparto.A 2020-08-20   62   85
-## 82 Esparto.A 2020-08-21   59   91
-## 83 Esparto.A 2020-08-22   67   97
-## 84 Esparto.A 2020-08-23   61   97
-## 85 Esparto.A 2020-08-24   67   96
-## 86 Esparto.A 2020-08-25   58   94
-## 87 Esparto.A 2020-08-26   58   95
-## 88 Esparto.A 2020-08-27   54   92
-## 89 Esparto.A 2020-08-28   59   94
-## 90 Esparto.A 2020-08-29   61   94
-## 91 Esparto.A 2020-08-30   60   91
-## 92 Esparto.A 2020-08-31   60   96</code></pre>
-</div>
-<p><br />
-</p>
-</div>
-<div id="resampling-the-temporal-resolution-with-date-parts"
-class="slide section level1 rmethod">
-<h1 class="rmethod">Resampling the temporal resolution with date
-parts</h1>
-<p>The standard way to resample involves <code>group_by()</code>
-followed by <code>summarise()</code>.</p>
-<p>FOr example to resample by month:</p>
-<div class="indented2 indented2r">
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" tabindex="-1"></a>espartoa_tbl <span class="sc">|&gt;</span> </span>
-<span id="cb53-2"><a href="#cb53-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">month =</span> <span class="fu">month</span>(date)) <span class="sc">|&gt;</span> </span>
-<span id="cb53-3"><a href="#cb53-3" tabindex="-1"></a>  <span class="fu">group_by</span>(month) <span class="sc">|&gt;</span> </span>
-<span id="cb53-4"><a href="#cb53-4" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">tmin_mean =</span> <span class="fu">mean</span>(tmin), <span class="at">tmax_mean =</span> <span class="fu">mean</span>(tmax), <span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span>)</span></code></pre></div>
-<pre><code>## # A tibble: 12 × 3
-##    month tmin_mean tmax_mean
-##    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
-##  1     1      39.3      58.4
-##  2     2      41.1      68.0
-##  3     3      41.9      64.5
-##  4     4      49.3      74.5
-##  5     5      54.1      83.5
-##  6     6      59.7      90  
-##  7     7      58.6      95.3
-##  8     8      61.2      95.7
-##  9     9      58.1      91.0
-## 10    10      50.7      84.6
-## 11    11      39.1      66.9
-## 12    12      37.6      58.9</code></pre>
-</div>
-<p><br />
-</p>
-<!------------ show an example of hourly to daily measurements ----->
-</div>
-<div id="building-up-a-table-within-a-loop"
-class="slide section level1 rmethod">
-<h1 class="rmethod">Building up a table within a loop</h1>
-<pre><code>my_master_weather_tbl &lt;- NULL
-
-for (i in &lt;something or other&gt;) {
-
-  one_bunch_of_data_tbl &lt;- tibble(...)
-  
-  my_master_weather_tbl &lt;- bind_rows(my_master_weather_tbl, one_bunch_of_data)
-}
-
-my_master_weather_tbl    ## Contains everything!!</code></pre>
-<p><br />
-</p>
-</div>
-<div id="reshaping-data-frames" class="slide section level1 rmethod">
-<h1 class="rmethod">Reshaping Data Frames</h1>
-<p><em>Reshaping</em> data includes:</p>
-<div class="compact">
-<ul>
-<li>turning rows into columns (aka pivot tables, cross tab query)<br />
-</li>
-<li>turning columns into rows</li>
-</ul>
-</div>
-<p>The go-to Tidyverse package for reshaping data frames is <a
-href="https://tidyr.tidyverse.org" target="_blank"
-rel="noopener"><tt><strong>tidyr</strong></tt></a></p>
-<p><br />
-</p>
-<div class="centerme">
-<p><a href="https://rawgit.com/rstudio/cheatsheets/master/tidyr.pdf"
-target="_blank" rel="noopener"><img
-src="images/tidyr_cheatsheet_600x464x256.png"
-style="border:1px solid grey;" /></a></p>
-</div>
-<p><br />
-</p>
-<h2 id="pivot-functions">Pivot Functions</h2>
-<div class="indented2" style="text-align:center;">
-<p><em><code>pivot_longer()</code></em><br />
-<img src="images/pivot_longer_566x212x256.png" /></p>
-<p><em><code>pivot_wider()</code></em><br />
-<img src="images/pivot_wider_674x336x256.png" /></p>
-</div>
-<p>More info and examples in the tidyr <a
-href="https://tidyr.tidyverse.org/articles/pivot.html" target="_blank"
-rel="noopener"><strong>Pivoting Vignette</strong></a></p>
-<p><br />
-</p>
-</div>
-<div id="caching-data" class="slide section level1 rmethod">
-<h1 class="rmethod">Caching data</h1>
-<!------------------
-OTHER
-
-Tip: Days begin at midnight (`00:00:00`) and end at `23:59:59`. 
-
-Creating tibbles with code
-
-# R Methods: Writing Your Own API Function
-
-
-
------->
-</div>
-<div id="notebook-time-1" class="slide section level1">
-<h1>Notebook Time!</h1>
 </div>
 <div id="end" class="slide section level1">
 <h1>End!</h1>

@@ -9,27 +9,31 @@ format:
 editor: visual
 ---
 
-# Summary
+# Overview
 
-In this assignment, you will find the date when a degree model predicts the emergence of adult Navel Orangeworm moths in Arbuckle, CA, during the 2023 growing season.
+In this exercise, you will find the date when a degree model predicts the emergence of adult Navel Orangeworm moths in Arbuckle, CA, during the 2023 growing season.
 
 # Background
 
 Navel Orangeworm (NOW) is a persistent pest for many California tree crops, including almond and pistachio. According to the UC IPM [Degree Day model for NOW](https://ipm.ucanr.edu/calludt.cgi/DDMODEL?MODEL=NOW), we can use degree days to predict when the "first flight" of adult NOWs will occur. Knowing this date helps growers plan IPM strategies such as mating disruption that are timed for specific phases of the NOW lifecycle.
 
-The biofix (start date) for the degree day model for NOW in Almonds is the date when you start to see a consistent increase of the presence of eggs on egg traps. More specifically:
+## Model Details
+
+Use the following degree day model from UC IPM:
+
+-   **System**: NOW in Almonds
+-   **Predicted event**: first flight
+-   **Degree Day Method**: single sine
+-   **Cutoff method**: horizontal
+-   **Lower threshold**: 55 °F
+-   **Upper threshold**: 94 °F
+-   **Biofix**: The date when you start to see a consistent increase of the presence of eggs on egg traps.
 
 ::: blockquote
 *"when at least 75% of the egg traps in a given location show increases in the number of eggs on two consecutive monitoring dates, the biofix is the first of those two dates"*. ([UC IPM](https://ipm.ucanr.edu/calludt.cgi/DDMODEL?MODEL=NOW&CROP=almonds))
 :::
 
-Other information the model provides:
-
--   **Degree Day Method**: single sine\
--   **Cutoff method**: horizontal\
--   **Lower threshold**: 55 °F
--   **Upper threshold**: 94 °F
--   **Time from biofix to the first generation of adults**: 1056 degree-days
+-   **Degree day time from biofix to the first generation of adults**: 1056 degree-days
 
 \
 
@@ -58,8 +62,6 @@ conflict_prefer("select", "dplyr", quiet = TRUE)
 conflict_prefer("arrange", "dplyr", quiet = TRUE)
 ```
 
-\
-
 Import the CSV file:
 
 ```{r}
@@ -72,8 +74,6 @@ williams_tbl <- read_csv("https://raw.githubusercontent.com/UCANR-IGIS/degday-sh
 
 head(williams_tbl)
 ```
-
-\
 
 To preview the data we can plot it:
 
@@ -89,25 +89,14 @@ ggplot(williams_tbl, aes(x = date, y = daily_min)) +
 
 \
 
-# Questions
-
 ## Date of the First Flight
 
-Write code to find the date when the degree model predicts the first flight. You can assume that you should start counting degree days the day *after* the biofix event.
+Write code to find the date when the degree model predicts the first flight. You can make the assumption that you should start counting degree days starting with the day *after* the biofix event. [[Solution](https://bit.ly/3QWhGgm)]
 
-<details style="margin:0 2em;; border:none; padding:0.5em;">
+**Hints**
 
-<summary style="color: green;">
-
-Hint
-
-</summary>
-
-See the Exercise we did in Part 1.
-
-If you're not sure how to filter a data frame in R by a date column, you could ask Google or [ChatGPT](https://chatgpt.com/) a question like, *"How do I filter a data frame in R by a date column?"*
-
-</details>
+1.  See the Exercise we did in Part 1.
+2.  If you're not sure how to filter a data frame in R by a date column, you could ask Google or [ChatGPT](https://chatgpt.com/) a question like, *"How do I filter a data frame in R by a date column?"*
 
 ```{r}
 ## Your answer here
@@ -118,9 +107,10 @@ If you're not sure how to filter a data frame in R by a date column, you could a
 
 ## Second Flight
 
-When does the model predict the 2nd generation of NOW emerged, assuming the generation time for the 2nd generation was 750 degree days after the first? (in general, the number degree days needed for eggs to reach maturity decrease after the first generation because there are more food resources for the moths)
+When does the model predict the 2nd generation of NOW emerged, assuming the generation time for the 2nd generation was 750 degree days after the first? (In general, the number degree days between generations decreases after the first generation, because there are more food resources available.) [[Solution](https://bit.ly/3WQeXsn)]
 
 ```{r}
 ## Your answer here
 
 ```
+

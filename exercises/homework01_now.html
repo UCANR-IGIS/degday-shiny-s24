@@ -84,33 +84,40 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   
 
 
-</header><section id="summary" class="level1" data-number="1"><h1 data-number="1">
-<span class="header-section-number">1</span> Summary</h1>
-<p>In this assignment, you will find the date when a degree model predicts the emergence of adult Navel Orangeworm moths in Arbuckle, CA, during the 2023 growing season.</p>
+</header><section id="overview" class="level1" data-number="1"><h1 data-number="1">
+<span class="header-section-number">1</span> Overview</h1>
+<p>In this exercise, you will find the date when a degree model predicts the emergence of adult Navel Orangeworm moths in Arbuckle, CA, during the 2023 growing season.</p>
 </section><section id="background" class="level1" data-number="2"><h1 data-number="2">
 <span class="header-section-number">2</span> Background</h1>
 <p>Navel Orangeworm (NOW) is a persistent pest for many California tree crops, including almond and pistachio. According to the UC IPM <a href="https://ipm.ucanr.edu/calludt.cgi/DDMODEL?MODEL=NOW">Degree Day model for NOW</a>, we can use degree days to predict when the “first flight” of adult NOWs will occur. Knowing this date helps growers plan IPM strategies such as mating disruption that are timed for specific phases of the NOW lifecycle.</p>
-<p>The biofix (start date) for the degree day model for NOW in Almonds is the date when you start to see a consistent increase of the presence of eggs on egg traps. More specifically:</p>
-<div class="blockquote">
-<p><em>“when at least 75% of the egg traps in a given location show increases in the number of eggs on two consecutive monitoring dates, the biofix is the first of those two dates”</em>. (<a href="https://ipm.ucanr.edu/calludt.cgi/DDMODEL?MODEL=NOW&amp;CROP=almonds">UC IPM</a>)</p>
-</div>
-<p>Other information the model provides:</p>
+<section id="model-details" class="level2" data-number="2.1"><h2 data-number="2.1" class="anchored" data-anchor-id="model-details">
+<span class="header-section-number">2.1</span> Model Details</h2>
+<p>Use the following degree day model from UC IPM:</p>
 <ul>
 <li>
-<strong>Degree Day Method</strong>: single sine<br>
-</li>
+<strong>System</strong>: NOW in Almonds</li>
 <li>
-<strong>Cutoff method</strong>: horizontal<br>
-</li>
+<strong>Predicted event</strong>: first flight</li>
+<li>
+<strong>Degree Day Method</strong>: single sine</li>
+<li>
+<strong>Cutoff method</strong>: horizontal</li>
 <li>
 <strong>Lower threshold</strong>: 55 °F</li>
 <li>
 <strong>Upper threshold</strong>: 94 °F</li>
 <li>
-<strong>Time from biofix to the first generation of adults</strong>: 1056 degree-days</li>
+<strong>Biofix</strong>: The date when you start to see a consistent increase of the presence of eggs on egg traps.</li>
+</ul>
+<div class="blockquote">
+<p><em>“when at least 75% of the egg traps in a given location show increases in the number of eggs on two consecutive monitoring dates, the biofix is the first of those two dates”</em>. (<a href="https://ipm.ucanr.edu/calludt.cgi/DDMODEL?MODEL=NOW&amp;CROP=almonds">UC IPM</a>)</p>
+</div>
+<ul>
+<li>
+<strong>Degree day time from biofix to the first generation of adults</strong>: 1056 degree-days</li>
 </ul>
 <p><br></p>
-</section><section id="when-did-the-model-predict-now-adults-in-2023" class="level1" data-number="3"><h1 data-number="3">
+</section></section><section id="when-did-the-model-predict-now-adults-in-2023" class="level1" data-number="3"><h1 data-number="3">
 <span class="header-section-number">3</span> When Did the Model Predict NOW Adults in 2023?</h1>
 <p>In 2023, the biofix for Navel Orangeworm in Arbuckle CA (Colusa County) was reported to be <a href="https://www.sacvalleyorchards.com/almonds/insects-mites/navel-orangeworm-biofix-in-a-wet-spring/"><strong>April 22, 2023</strong></a>.</p>
 <p><strong>Your job is to use the degree day model described above to find the predicted date for the first generation of NOW moths in 2023.</strong></p>
@@ -130,7 +137,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="fu"><a href="https://conflicted.r-lib.org/reference/conflict_prefer.html">conflict_prefer</a></span><span class="op">(</span><span class="st">"select"</span>, <span class="st">"dplyr"</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://conflicted.r-lib.org/reference/conflict_prefer.html">conflict_prefer</a></span><span class="op">(</span><span class="st">"arrange"</span>, <span class="st">"dplyr"</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><br></p>
 <p>Import the CSV file:</p>
 <div class="cell">
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">williams_tbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"https://raw.githubusercontent.com/UCANR-IGIS/degday-shiny-s24/main/exercises/data/williams-cimis-2023.csv"</span>,</span>
@@ -149,7 +155,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p><br></p>
 <p>To preview the data we can plot it:</p>
 <div class="cell">
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">williams_tbl</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">date</span>, y <span class="op">=</span> <span class="va">daily_min</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
@@ -167,21 +172,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p><br></p>
-</section></section><section id="questions" class="level1" data-number="4"><h1 data-number="4">
-<span class="header-section-number">4</span> Questions</h1>
-<section id="date-of-the-first-flight" class="level2" data-number="4.1"><h2 data-number="4.1" class="anchored" data-anchor-id="date-of-the-first-flight">
-<span class="header-section-number">4.1</span> Date of the First Flight</h2>
-<p>Write code to find the date when the degree model predicts the first flight. You can assume that you should start counting degree days the day <em>after</em> the biofix event.</p>
-<details style="margin:0 2em;; border:none; padding:0.5em;"><summary style="color: green;"><p>Hint</p>
-</summary><p>See the Exercise we did in Part 1.</p>
-<p>If you’re not sure how to filter a data frame in R by a date column, you could ask Google or <a href="https://chatgpt.com/">ChatGPT</a> a question like, <em>“How do I filter a data frame in R by a date column?”</em></p>
-</details><div class="cell">
+</section><section id="date-of-the-first-flight" class="level2" data-number="3.2"><h2 data-number="3.2" class="anchored" data-anchor-id="date-of-the-first-flight">
+<span class="header-section-number">3.2</span> Date of the First Flight</h2>
+<p>Write code to find the date when the degree model predicts the first flight. You can make the assumption that you should start counting degree days starting with the day <em>after</em> the biofix event. [<a href="https://bit.ly/3QWhGgm">Solution</a>]</p>
+<p><strong>Hints</strong></p>
+<ol type="1">
+<li>See the Exercise we did in Part 1.</li>
+<li>If you’re not sure how to filter a data frame in R by a date column, you could ask Google or <a href="https://chatgpt.com/">ChatGPT</a> a question like, <em>“How do I filter a data frame in R by a date column?”</em>
+</li>
+</ol>
+<div class="cell">
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">## Your answer here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br></p>
-</section><section id="second-flight" class="level2" data-number="4.2"><h2 data-number="4.2" class="anchored" data-anchor-id="second-flight">
-<span class="header-section-number">4.2</span> Second Flight</h2>
-<p>When does the model predict the 2nd generation of NOW emerged, assuming the generation time for the 2nd generation was 750 degree days after the first? (in general, the number degree days needed for eggs to reach maturity decrease after the first generation because there are more food resources for the moths)</p>
+</section><section id="second-flight" class="level2" data-number="3.3"><h2 data-number="3.3" class="anchored" data-anchor-id="second-flight">
+<span class="header-section-number">3.3</span> Second Flight</h2>
+<p>When does the model predict the 2nd generation of NOW emerged, assuming the generation time for the 2nd generation was 750 degree days after the first? (In general, the number degree days between generations decreases after the first generation, because there are more food resources available.) [<a href="https://bit.ly/3WQeXsn">Solution</a>]</p>
 <div class="cell">
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">## Your answer here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
