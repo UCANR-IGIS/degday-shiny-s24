@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.553">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Homework 2: Download and Plot Weather Station Data using the Synoptic API - SOLUTIONS</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="homework02_synoptic_ans_files/libs/clipboard/clipboard.min.js"></script>
+<script src="homework02_synoptic_ans_files/libs/quarto-html/quarto.js"></script>
+<script src="homework02_synoptic_ans_files/libs/quarto-html/popper.min.js"></script>
+<script src="homework02_synoptic_ans_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="homework02_synoptic_ans_files/libs/quarto-html/anchor.min.js"></script>
+<link href="homework02_synoptic_ans_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="homework02_synoptic_ans_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="homework02_synoptic_ans_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="homework02_synoptic_ans_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="homework02_synoptic_ans_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light"><link href="homework02_synoptic_ans_files/libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
+<script src="homework02_synoptic_ans_files/libs/pagedtable-1.1/js/pagedtable.js"></script>
+</head>
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title">Homework 2: Download and Plot Weather Station Data using the Synoptic API - SOLUTIONS</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header><section id="overview" class="level1" data-number="1"><h1 data-number="1">
+<span class="header-section-number">1</span> Overview</h1>
+<p>In this exercise, you will import and plot a) temperature and b) precipitation data for a weather station of your choice using the Synoptic API. The outputs will look something like:</p>
+<p><img src="./images/hollister-tasmin-tasmax-plot.png" class="img-fluid"></p>
+<p><br></p>
+<p><img src="./images/hollister-daily-precip-col-chart.png" class="img-fluid"></p>
+<p><br></p>
+<p><img src="./images/hollister-acc-precip.png" class="img-fluid"></p>
+<p><br></p>
+</section><section id="preparation" class="level1" data-number="2"><h1 data-number="2">
+<span class="header-section-number">2</span> Preparation</h1>
+<section id="create-a-synoptic-account" class="level2" data-number="2.1"><h2 data-number="2.1" class="anchored" data-anchor-id="create-a-synoptic-account">
+<span class="header-section-number">2.1</span> 1. Create a Synoptic Account</h2>
+<p>Create an account on <a href="https://customer.synopticdata.com/">Synoptic Data</a> (<a href="welcome.html#synoptic-setup">instructions</a>). Either an open access or a commercial trial account will work. Create a private key and public token. You will use your public token when calling the API.</p>
+</section><section id="select-a-weather-station" class="level2" data-number="2.2"><h2 data-number="2.2" class="anchored" data-anchor-id="select-a-weather-station">
+<span class="header-section-number">2.2</span> 2. Select a Weather Station</h2>
+<p>Open the Synoptic Data Viewer: <a href="https://viewer.synopticdata.com/" class="uri">https://viewer.synopticdata.com/</a></p>
+<p>Zoom and pan to find the station of your choice. Try to find a weather station that records both temperature and precipitation (this includes stations in the CIMIS network, RAWS, Global METAR, and others).</p>
+<p>Click on a station to view the station ID and data availability.</p>
+<p><img src="./images/synoptic-station-id_hollister_650x260.png" class="img-fluid"></p>
+</section><section id="read-the-docs" class="level2" data-number="2.3"><h2 data-number="2.3" class="anchored" data-anchor-id="read-the-docs">
+<span class="header-section-number">2.3</span> 3. Read the docs</h2>
+<p>Read the documentation for the Synoptic <a href="https://docs.synopticdata.com/services/time-series">time series</a> end point. Take note of:</p>
+<ul>
+<li>the base URL</li>
+<li>parameters (required and optional)</li>
+</ul>
+<p><strong>Tip:</strong> You can test your request with the Synoptic Query Builder: <a href="https://demos.synopticdata.com/query-builder/" class="uri">https://demos.synopticdata.com/query-builder/</a></p>
+<p><br></p>
+</section></section><section id="part-1.-download-hourly-temperature-data-compute-daily-min-and-max-and-plot" class="level1" data-number="3"><h1 data-number="3">
+<span class="header-section-number">3</span> Part 1. Download hourly temperature data, compute daily min and max, and plot</h1>
+<section id="create-the-api-request" class="level2" data-number="3.1"><h2 data-number="3.1" class="anchored" data-anchor-id="create-the-api-request">
+<span class="header-section-number">3.1</span> Create the API Request</h2>
+<p>Create an API request object for the Synoptic Time Series End Point, getting hourly temperature and precipitation data for the station of your choice from Oct 1, 2023 thru yesterday (i.e., the current water year).</p>
+<div class="cell">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://httr2.r-lib.org">httr2</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://lubridate.tidyverse.org">lubridate</a></span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">synoptic_ts_baseurl</span> <span class="op">&lt;-</span> <span class="st">"https://api.synopticdata.com/v2/stations/timeseries"</span></span>
+<span></span>
+<span><span class="va">my_token</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="st">"~/My Tokens/my_synoptic_token_hw02.txt"</span>, n <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">station_id_chr</span> <span class="op">&lt;-</span> <span class="st">"HSEC1"</span></span>
+<span></span>
+<span><span class="co">## Create the start time (midnight Oct 1, 2023 &gt; converted to UTC &gt; converted to a character </span></span>
+<span><span class="co">## string formatted as YYYYmmddHHMM)</span></span>
+<span></span>
+<span><span class="va">start_utc_chr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/make_datetime.html">make_datetime</a></span><span class="op">(</span>year <span class="op">=</span> <span class="fl">2023</span>, month <span class="op">=</span> <span class="fl">10</span>, day <span class="op">=</span> <span class="fl">1</span>, hour <span class="op">=</span> <span class="fl">0</span>, min <span class="op">=</span> <span class="fl">0</span>, sec <span class="op">=</span> <span class="fl">0</span>, </span>
+<span>                               tz <span class="op">=</span> <span class="st">"America/Los_Angeles"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://lubridate.tidyverse.org/reference/with_tz.html">with_tz</a></span><span class="op">(</span><span class="st">"UTC"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/format.html">format</a></span><span class="op">(</span><span class="st">"%Y%m%d%H%M"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">start_utc_chr</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "202310010700"</code></pre>
+</div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">## Create the end time (11:59pm yesterday &gt;&gt; converted to UTC &gt;&gt; converted to a character </span></span>
+<span><span class="co">## string formatted as YYYYmmddHHMM)</span></span>
+<span></span>
+<span><span class="va">end_utc_chr</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/as_date.html">as_datetime</a></span><span class="op">(</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/now.html">today</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html">days</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>, tz <span class="op">=</span> <span class="st">"America/Los_Angeles"</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>                  <span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html">hours</a></span><span class="op">(</span><span class="fl">23</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html">minutes</a></span><span class="op">(</span><span class="fl">59</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span>  </span>
+<span>  <span class="fu"><a href="https://lubridate.tidyverse.org/reference/with_tz.html">with_tz</a></span><span class="op">(</span><span class="st">"UTC"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/format.html">format</a></span><span class="op">(</span><span class="st">"%Y%m%d%H%M"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">end_utc_chr</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "202405210659"</code></pre>
+</div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">weather_vars</span> <span class="op">&lt;-</span> <span class="st">"air_temp"</span></span>
+<span></span>
+<span><span class="co">## Create the request object:</span></span>
+<span><span class="va">holister_tas_req</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://httr2.r-lib.org/reference/request.html">request</a></span><span class="op">(</span><span class="va">synoptic_ts_baseurl</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://httr2.r-lib.org/reference/req_headers.html">req_headers</a></span><span class="op">(</span><span class="st">"Accept"</span> <span class="op">=</span> <span class="st">"application/json"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://httr2.r-lib.org/reference/req_url.html">req_url_query</a></span><span class="op">(</span>token <span class="op">=</span> <span class="va">my_token</span>,</span>
+<span>                start <span class="op">=</span> <span class="va">start_utc_chr</span>,</span>
+<span>                end <span class="op">=</span> <span class="va">end_utc_chr</span>,</span>
+<span>                stid <span class="op">=</span> <span class="va">station_id_chr</span>,</span>
+<span>                vars <span class="op">=</span> <span class="va">weather_vars</span>,</span>
+<span>                units <span class="op">=</span> <span class="st">"english"</span>,</span>
+<span>                obtimezone <span class="op">=</span> <span class="st">"local"</span>,</span>
+<span>                .multi <span class="op">=</span> <span class="st">"comma"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">holister_tas_req</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>&lt;httr2_request&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>GET
+https://api.synopticdata.com/v2/stations/timeseries?token=8a8a02a7adb14d74af68b54e494e30ec&amp;start=202310010700&amp;end=202405210659&amp;stid=HSEC1&amp;vars=air_temp&amp;units=english&amp;obtimezone=local</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Headers:</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>• Accept: 'application/json'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Body: empty</code></pre>
+</div>
+</div>
+<p><br></p>
+</section><section id="perform-the-request" class="level2" data-number="3.2"><h2 data-number="3.2" class="anchored" data-anchor-id="perform-the-request">
+<span class="header-section-number">3.2</span> Perform the request</h2>
+<div class="cell">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">## Do a dry run</span></span>
+<span><span class="co"># holister_tas_req |&gt; req_dry_run()  </span></span>
+<span></span>
+<span><span class="co">## Perform the request</span></span>
+<span><span class="va">holister_tas_resp</span> <span class="op">&lt;-</span> <span class="va">holister_tas_req</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://httr2.r-lib.org/reference/req_perform.html">req_perform</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><br></p>
+<p>View the response:</p>
+<div class="cell">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">holister_tas_resp</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>&lt;httr2_response&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>GET
+https://api.synopticdata.com/v2/stations/timeseries?token=8a8a02a7adb14d74af68b54e494e30ec&amp;start=202310010700&amp;end=202405210659&amp;stid=HSEC1&amp;vars=air_temp&amp;units=english&amp;obtimezone=local</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Status: 200 OK</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Content-Type: application/json</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Body: In memory (179848 bytes)</code></pre>
+</div>
+</div>
+<p><br></p>
+</section><section id="convert-the-response-into-a-tibble" class="level2" data-number="3.3"><h2 data-number="3.3" class="anchored" data-anchor-id="convert-the-response-into-a-tibble">
+<span class="header-section-number">3.3</span> Convert the response into a tibble</h2>
+<p>Extract the body of the response as a list object:</p>
+<div class="cell">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">holister_tas_lst</span> <span class="op">&lt;-</span> <span class="va">holister_tas_resp</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://httr2.r-lib.org/reference/resp_body_raw.html">resp_body_json</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## Inspect the structure</span></span>
+<span><span class="co">## holister_tas_lst |&gt; View()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><br></p>
+<p>Pull out the dates:</p>
+<div class="cell">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">holister_tas_dt</span> <span class="op">&lt;-</span> <span class="va">holister_tas_lst</span><span class="op">$</span><span class="va">STATION</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">OBSERVATIONS</span><span class="op">$</span><span class="va">date_time</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd_hms.html">ymd_hms</a></span><span class="op">(</span>tz <span class="op">=</span> <span class="st">"America/Los_Angeles"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Date in ISO8601 format; converting timezone from UTC to "America/Los_Angeles".</code></pre>
+</div>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">holister_tas_dt</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5591</code></pre>
+</div>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">holister_tas_dt</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "2023-10-01 00:13:00 PDT" "2023-10-01 01:13:00 PDT"
+[3] "2023-10-01 02:13:00 PDT" "2023-10-01 03:13:00 PDT"
+[5] "2023-10-01 04:13:00 PDT" "2023-10-01 05:13:00 PDT"</code></pre>
+</div>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">tail</a></span><span class="op">(</span><span class="va">holister_tas_dt</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "2024-05-20 18:13:00 PDT" "2024-05-20 19:13:00 PDT"
+[3] "2024-05-20 20:13:00 PDT" "2024-05-20 21:13:00 PDT"
+[5] "2024-05-20 22:13:00 PDT" "2024-05-20 23:13:00 PDT"</code></pre>
+</div>
+</div>
+<p><br></p>
+<p>Pull out the temperature values:</p>
+<p><strong>TIP</strong>: You can convert NULL values in a list to NAs with <code><a href="https://purrr.tidyverse.org/reference/modify.html">purrr::modify_if()</a></code>. Example:</p>
+<div class="cell">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">lst</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>a <span class="op">=</span> <span class="fl">1</span>, b <span class="op">=</span> <span class="fl">2</span>, c <span class="op">=</span> <span class="cn">NULL</span>, d <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">lst</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>List of 4
+ $ a: num 1
+ $ b: num 2
+ $ c: NULL
+ $ d: num 4</code></pre>
+</div>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://purrr.tidyverse.org/">purrr</a></span><span class="op">)</span></span>
+<span><span class="va">lst_nonull</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/modify.html">modify_if</a></span><span class="op">(</span><span class="va">lst</span>, <span class="va">is_null</span>, <span class="op">~</span><span class="cn">NA</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">lst_nonull</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>List of 4
+ $ a: num 1
+ $ b: num 2
+ $ c: logi NA
+ $ d: num 4</code></pre>
+</div>
+</div>
+<p><br></p>
+<div class="cell">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">holister_tas_temp_int</span> <span class="op">&lt;-</span> <span class="va">holister_tas_lst</span><span class="op">$</span><span class="va">STATION</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">OBSERVATIONS</span><span class="op">$</span><span class="va">air_temp_set_1</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/modify.html">modify_if</a></span><span class="op">(</span><span class="va">is_null</span>, <span class="op">~</span><span class="cn">NA</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">holister_tas_temp_int</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5591</code></pre>
+</div>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">holister_tas_temp_int</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 57 57 57 57 57 57</code></pre>
+</div>
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">tail</a></span><span class="op">(</span><span class="va">holister_tas_temp_int</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 64 62 55 52 51 50</code></pre>
+</div>
+</div>
+<p><br></p>
+<p>Combine the dates and temperature values into a tibble:</p>
+<div class="cell">
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span>, warn.conflicts <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">holister_tas_hly_tbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span></span>
+<span>  stat_id <span class="op">=</span> <span class="st">"HSEC1"</span>,</span>
+<span>  dt <span class="op">=</span> <span class="va">holister_tas_dt</span>,</span>
+<span>  tas <span class="op">=</span> <span class="va">holister_tas_temp_int</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="va">holister_tas_hly_tbl</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 5,591
+Columns: 3
+$ stat_id &lt;chr&gt; "HSEC1", "HSEC1", "HSEC1", "HSEC1", "HSEC1", "HSEC1", "HSEC1",…
+$ dt      &lt;dttm&gt; 2023-10-01 00:13:00, 2023-10-01 01:13:00, 2023-10-01 02:13:00…
+$ tas     &lt;dbl&gt; 57, 57, 57, 57, 57, 57, 56, 56, 57, 59, 61, 63, 68, 72, 74, 71…</code></pre>
+</div>
+</div>
+<p><br></p>
+</section><section id="aggregate-by-day" class="level2" data-number="3.4"><h2 data-number="3.4" class="anchored" data-anchor-id="aggregate-by-day">
+<span class="header-section-number">3.4</span> Aggregate by day</h2>
+<p>As can be seen above, the daily we got is hourly. So we need to compute the minimum and maximum temperature by day.</p>
+<div class="cell">
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">holister_tas_dly_tbl</span> <span class="op">&lt;-</span> <span class="va">holister_tas_hly_tbl</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span>date <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/date.html">date</a></span><span class="op">(</span><span class="va">dt</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>tasmin <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">tas</span><span class="op">)</span>, tasmax <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">tas</span><span class="op">)</span>, .groups <span class="op">=</span> <span class="st">"drop"</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="va">holister_tas_dly_tbl</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 233
+Columns: 3
+$ date   &lt;date&gt; 2023-10-01, 2023-10-02, 2023-10-03, 2023-10-04, 2023-10-05, 20…
+$ tasmin &lt;dbl&gt; 55, 49, 49, 54, 57, 59, 60, 56, 55, 61, 54, 50, 50, 50, 50, 51,…
+$ tasmax &lt;dbl&gt; 74, 77, 84, 92, 96, 99, 100, 83, 71, 72, 73, 80, 82, 81, 85, 83…</code></pre>
+</div>
+</div>
+<p><br></p>
+</section><section id="plot-the-minimum-and-maximum-daily-temperature" class="level2" data-number="3.5"><h2 data-number="3.5" class="anchored" data-anchor-id="plot-the-minimum-and-maximum-daily-temperature">
+<span class="header-section-number">3.5</span> Plot the minimum and maximum daily temperature</h2>
+<div class="cell">
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">holister_tas_dly_tbl</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">date</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">tasmin</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">tasmax</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span><span class="op">(</span><span class="st">"temp (F)"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">xlab</a></span><span class="op">(</span><span class="st">""</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Daily Minimum and Maximum Temperature for Hollister, CA"</span>, </span>
+<span>       subtitle <span class="op">=</span> <span class="st">"Oct 2023 - May 2024"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="homework02_synoptic_ans_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><br></p>
+</section></section><section id="part-ii-bonus-download-and-plot-daily-prepcipitation" class="level1" data-number="4"><h1 data-number="4">
+<span class="header-section-number">4</span> Part II (Bonus): Download and plot daily prepcipitation</h1>
+<p>To download the precipitation values, we can re-use most of the contents of our temperature request object, but change the <code>vars</code> parameter to <code>precip</code>, and add <code>precip = 1</code> to enable derived precipitation (see the Time Series endpoint docs for details).</p>
+<section id="create-the-request-object" class="level2" data-number="4.1"><h2 data-number="4.1" class="anchored" data-anchor-id="create-the-request-object">
+<span class="header-section-number">4.1</span> Create the request object</h2>
+<div class="cell">
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">holister_pr_req</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://httr2.r-lib.org/reference/request.html">request</a></span><span class="op">(</span><span class="va">synoptic_ts_baseurl</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://httr2.r-lib.org/reference/req_headers.html">req_headers</a></span><span class="op">(</span><span class="st">"Accept"</span> <span class="op">=</span> <span class="st">"application/json"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://httr2.r-lib.org/reference/req_url.html">req_url_query</a></span><span class="op">(</span>token <span class="op">=</span> <span class="va">my_token</span>,</span>
+<span>                start <span class="op">=</span> <span class="va">start_utc_chr</span>,</span>
+<span>                end <span class="op">=</span> <span class="va">end_utc_chr</span>,</span>
+<span>                stid <span class="op">=</span> <span class="va">station_id_chr</span>,</span>
+<span>                vars <span class="op">=</span> <span class="st">"precip"</span>,</span>
+<span>                precip <span class="op">=</span> <span class="fl">1</span>,                   <span class="co">## recommended in  the API Docs</span></span>
+<span>                units <span class="op">=</span> <span class="st">"english"</span>,</span>
+<span>                obtimezone <span class="op">=</span> <span class="st">"local"</span>,</span>
+<span>                .multi <span class="op">=</span> <span class="st">"comma"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">holister_pr_req</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>&lt;httr2_request&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>GET
+https://api.synopticdata.com/v2/stations/timeseries?token=8a8a02a7adb14d74af68b54e494e30ec&amp;start=202310010700&amp;end=202405210659&amp;stid=HSEC1&amp;vars=precip&amp;precip=1&amp;units=english&amp;obtimezone=local</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Headers:</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>• Accept: 'application/json'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Body: empty</code></pre>
+</div>
+</div>
+<p><br></p>
+</section><section id="perform-the-request-1" class="level2" data-number="4.2"><h2 data-number="4.2" class="anchored" data-anchor-id="perform-the-request-1">
+<span class="header-section-number">4.2</span> Perform the request</h2>
+<div class="cell">
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">holister_pr_resp</span> <span class="op">&lt;-</span> <span class="va">holister_pr_req</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://httr2.r-lib.org/reference/req_perform.html">req_perform</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">holister_pr_resp</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>&lt;httr2_response&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>GET
+https://api.synopticdata.com/v2/stations/timeseries?token=8a8a02a7adb14d74af68b54e494e30ec&amp;start=202310010700&amp;end=202405210659&amp;stid=HSEC1&amp;vars=precip&amp;precip=1&amp;units=english&amp;obtimezone=local</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Status: 200 OK</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Content-Type: application/json</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Body: In memory (203689 bytes)</code></pre>
+</div>
+</div>
+<p><br></p>
+</section><section id="convert-the-body-to-a-tibble" class="level2" data-number="4.3"><h2 data-number="4.3" class="anchored" data-anchor-id="convert-the-body-to-a-tibble">
+<span class="header-section-number">4.3</span> Convert the body to a tibble</h2>
+<p>First we convert the body to a list:</p>
+<div class="cell">
+<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">holister_pr_lst</span> <span class="op">&lt;-</span> <span class="va">holister_pr_resp</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://httr2.r-lib.org/reference/resp_body_raw.html">resp_body_json</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co"># holister_pr_lst |&gt; View()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><br></p>
+<p>Pull out the dates:</p>
+<div class="cell">
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">holister_pr_dt</span> <span class="op">&lt;-</span> <span class="va">holister_pr_lst</span><span class="op">$</span><span class="va">STATION</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">OBSERVATIONS</span><span class="op">$</span><span class="va">date_time</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd_hms.html">ymd_hms</a></span><span class="op">(</span>tz <span class="op">=</span> <span class="st">"America/Los_Angeles"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Date in ISO8601 format; converting timezone from UTC to "America/Los_Angeles".</code></pre>
+</div>
+<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">holister_pr_dt</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5591</code></pre>
+</div>
+</div>
+<p><br></p>
+<p>Pull out the precip values:</p>
+<div class="cell">
+<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">holister_pr_int_dbl</span> <span class="op">&lt;-</span> <span class="va">holister_pr_lst</span><span class="op">$</span><span class="va">STATION</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">OBSERVATIONS</span><span class="op">$</span><span class="va">precip_intervals_set_1d</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/modify.html">modify_if</a></span><span class="op">(</span><span class="va">is_null</span>, <span class="op">~</span><span class="cn">NA</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">holister_pr_int_dbl</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5591</code></pre>
+</div>
+</div>
+<p><br></p>
+<p>Combine the date and hourly precipitation vectors in a tibble:</p>
+<div class="cell">
+<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">holister_pr_hly_tbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span></span>
+<span>  stat_id <span class="op">=</span> <span class="st">"HSEC1"</span>,</span>
+<span>  dt <span class="op">=</span> <span class="va">holister_pr_dt</span>,</span>
+<span>  pr <span class="op">=</span> <span class="va">holister_pr_int_dbl</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="va">holister_pr_hly_tbl</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 5,591
+Columns: 3
+$ stat_id &lt;chr&gt; "HSEC1", "HSEC1", "HSEC1", "HSEC1", "HSEC1", "HSEC1", "HSEC1",…
+$ dt      &lt;dttm&gt; 2023-10-01 00:13:00, 2023-10-01 01:13:00, 2023-10-01 02:13:00…
+$ pr      &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…</code></pre>
+</div>
+</div>
+<p><br></p>
+</section><section id="compute-the-daily-totals-and-plot" class="level2" data-number="4.4"><h2 data-number="4.4" class="anchored" data-anchor-id="compute-the-daily-totals-and-plot">
+<span class="header-section-number">4.4</span> Compute the daily totals and plot</h2>
+<p>First, we compute the daily totals:</p>
+<div class="cell">
+<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">holister_pr_dly_tbl</span> <span class="op">&lt;-</span> <span class="va">holister_pr_hly_tbl</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span>date <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/date.html">date</a></span><span class="op">(</span><span class="va">dt</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>daily_precip <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">pr</span><span class="op">)</span>, .groups <span class="op">=</span> <span class="st">"drop"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">holister_pr_dly_tbl</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["date"],"name":[1],"type":["date"],"align":["right"]},{"label":["daily_precip"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"2023-10-01","2":"0"},{"1":"2023-10-02","2":"0"},{"1":"2023-10-03","2":"0"},{"1":"2023-10-04","2":"0"},{"1":"2023-10-05","2":"0"},{"1":"2023-10-06","2":"0"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<p><br></p>
+<p>Plot them as a column chart:</p>
+<div class="cell">
+<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">holister_pr_dly_tbl</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">date</span>, y <span class="op">=</span> <span class="va">daily_precip</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_col</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span><span class="op">(</span><span class="st">"precip (in)"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">xlab</a></span><span class="op">(</span><span class="st">""</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Daily Precipitation Totals for Hollister, CA"</span>, </span>
+<span>       subtitle <span class="op">=</span> <span class="st">"Oct 2023 - May 2024"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 1 row containing missing values or values outside the scale range
+(`geom_col()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="homework02_synoptic_ans_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><br></p>
+</section><section id="plot-the-accumulated-precipitation" class="level2" data-number="4.5"><h2 data-number="4.5" class="anchored" data-anchor-id="plot-the-accumulated-precipitation">
+<span class="header-section-number">4.5</span> Plot the accumulated precipitation</h2>
+<div class="cell">
+<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org">tidyr</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">holister_pr_dly_tbl</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/replace_na.html">replace_na</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>daily_precip <span class="op">=</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>acc_pr <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cumsum.html">cumsum</a></span><span class="op">(</span><span class="va">daily_precip</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">holister_pr_dly_tbl</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">date</span>, y <span class="op">=</span> <span class="va">acc_pr</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span><span class="op">(</span><span class="st">"precip (in)"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">xlab</a></span><span class="op">(</span><span class="st">""</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Accumulated Precipitation for Hollister, CA"</span>, </span>
+<span>       subtitle <span class="op">=</span> <span class="st">"Oct 2023 - May 2024"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="homework02_synoptic_ans_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><br></p>
+</section><section id="what-was-the-total-accumulation-this-water-year" class="level2" data-number="4.6"><h2 data-number="4.6" class="anchored" data-anchor-id="what-was-the-total-accumulation-this-water-year">
+<span class="header-section-number">4.6</span> What was the total accumulation this water year?</h2>
+<div class="cell">
+<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">holister_pr_dly_tbl</span><span class="op">$</span><span class="va">daily_precip</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span>na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 14.07</code></pre>
+</div>
+</div>
+</section></section></main><!-- /main column --><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

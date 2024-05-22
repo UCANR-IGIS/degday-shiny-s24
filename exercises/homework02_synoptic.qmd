@@ -1,0 +1,172 @@
+---
+title: "Homework 2: Download and Plot Weather Station Data using the Synoptic API"
+format: 
+  html:
+    theme: cosmo
+    df-print: paged
+    code-link: true
+    number-sections: true
+editor: visual
+---
+
+# Overview
+
+In this exercise, you will import and plot a) temperature and b) precipitation data for a weather station of your choice using the Synoptic API. The outputs will look something like:
+
+![](./images/hollister-tasmin-tasmax-plot.png)
+
+\
+
+![](./images/hollister-daily-precip-col-chart.png)
+
+\
+
+![](./images/hollister-acc-precip.png)
+
+\
+
+# Preparation
+
+## 1\. Create a Synoptic Account
+
+Create an account on [Synoptic Data](https://customer.synopticdata.com/) ([instructions](welcome.html#synoptic-setup)). Either an open access or a commercial trial account will work. Create a private key and public token. You will use your public token when calling the API.
+
+## 2\. Select a Weather Station
+
+Open the Synoptic Data Viewer: <https://viewer.synopticdata.com/>
+
+Zoom and pan to find the station of your choice. Try to find a weather station that records both temperature and precipitation (this includes stations in the CIMIS network, RAWS, Global METAR, and others).
+
+Click on a station to view the station ID and data availability.
+
+![](./images/synoptic-station-id_hollister_650x260.png)
+
+## 3\. Read the docs
+
+Read the documentation for the Synoptic [time series](https://docs.synopticdata.com/services/time-series) end point. Take note of:
+
+- the base URL
+- parameters (required and optional)
+
+**Tip:** You can test your request with the Synoptic Query Builder: <https://demos.synopticdata.com/query-builder/>
+
+\
+
+# Part 1. Download hourly temperature data, compute daily min and max, and plot
+
+## Create the API Request
+
+Create an API request object for the Synoptic Time Series End Point, getting hourly temperature and precipitation data for the station of your choice from Oct 1, 2023 thru yesterday (i.e., the current water year).
+
+```{r}
+## Your answer here
+
+```
+
+\
+
+## Perform the request
+
+```{r perform_req, cache = TRUE}
+## Your answer here
+
+```
+
+\
+
+## Convert the response into a tibble
+
+**TIP**: You can convert NULL values in a list to NAs with `purrr::modify_if()`. Example:
+
+```{r modify_if_examples}
+lst <- list(a = 1, b = 2, c = NULL, d = 4)
+str(lst)
+
+library(purrr)
+lst_nonull <- modify_if(lst, is_null, ~NA)
+str(lst_nonull)
+```
+
+
+```{r}
+## Your answer here
+
+```
+
+\
+
+## Aggregate by day
+
+As can be seen above, the daily we got is hourly. So we need to compute the minimum and maximum temperature by day.
+
+```{r}
+## Your answer here
+
+```
+
+\
+
+## Plot the minimum and maximum daily temperature
+
+```{r}
+## Your answer here
+
+```
+
+\
+
+# Part II (Bonus): Download and plot daily prepcipitation
+
+**TIP**: To download the precipitation values, you can re-use most of the contents of your temperature request object, but change the `vars` parameter to `precip`, and add `precip = 1` to enable derived precipitation (see the Time Series endpoint docs for details).
+
+## Create the request object
+
+```{r}
+## Your answer here
+
+```
+\
+
+## Perform the request
+
+```{r}
+## Your answer here
+
+```
+
+\
+
+## Convert the body to a tibble
+
+```{r}
+## Your answer here
+
+```
+
+\
+
+## Compute the daily totals and plot them as a column chart
+
+```{r}
+## Your answer here
+
+```
+
+\
+
+## Plot the accumulated precipitation
+
+```{r}
+## Your answer here
+
+```
+
+\
+
+## What was the total accumulation this water year?
+
+```{r}
+## Your answer here
+
+```
+

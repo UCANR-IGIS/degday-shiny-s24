@@ -10,10 +10,10 @@ welcome*.qmd
 *_ans.R
 *_ans.Rmd
 *gtag.js
-
+exercises/*_cache*
 
 # Temporary ignores below:
-exercises/homework02*
+# exercises/homework02*
 # my_synoptic_token.txt
 # /slides/agclim*
 # *_nb*
