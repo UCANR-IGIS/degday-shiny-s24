@@ -28,6 +28,16 @@ Our desired output are tables with the following columns:
 - `tasmin`: minimum daily temperature  
 - `tasmax`: maximum daily temperature  
 
+![](./images/oakville_stf.png)
+
+\
+
+![](./images/oakville_ssnfcast.png)
+
+\
+
+![](./images/oakville_histavg.png)
+
 :::
 
 \
@@ -276,14 +286,12 @@ om_ssnfcast_lst <- om_ssnfcast_resp |> resp_body_json()
 
 ```{r chunk17}
 library(lubridate)
-
-## In case there are NULL values
-null2na <- function(x) ifelse(is.null(x), NA, x)
+library(purrr)
 
 om_ssnfcast_tbl <- tibble(
   date = om_ssnfcast_lst$daily$time |> unlist() |> ymd(),
-  tasmin = om_ssnfcast_lst$daily$temperature_2m_min_member01 |> sapply(null2na),
-  tasmax = om_ssnfcast_lst$daily$temperature_2m_max_member01 |> sapply(null2na)
+  tasmin = om_ssnfcast_lst$daily$temperature_2m_min_member01 |> modify_if(is_null, ~NA) |> unlist(),
+  tasmax = om_ssnfcast_lst$daily$temperature_2m_max_member01 |> modify_if(is_null, ~NA) |> unlist()
 )
 
 head(om_ssnfcast_tbl)

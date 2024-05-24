@@ -1,0 +1,834 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <meta name="author" content=" May 24, 2024 https://ucanr-igis.github.io/degday-shiny-s24/ " />
+  <meta name="copyright" content="<a href='https://ucanr-igis.github.io/degday-shiny-s24/' style='color:#444;'>https://ucanr-igis.github.io/degday-shiny-s24/</a>"/>
+  <title>Pt3 Shiny Apps</title>
+  <style type="text/css">
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+            pre > code.sourceCode { white-space: pre; position: relative; }
+            pre > code.sourceCode > span { line-height: 1.25; }
+            pre > code.sourceCode > span:empty { height: 1.2em; }
+            .sourceCode { overflow: visible; }
+            code.sourceCode > span { color: inherit; text-decoration: inherit; }
+            div.sourceCode { margin: 1em 0; }
+            pre.sourceCode { margin: 0; }
+            @media screen {
+            div.sourceCode { overflow: auto; }
+            }
+            @media print {
+            pre > code.sourceCode { white-space: pre-wrap; }
+            pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+            }
+            pre.numberSource code
+              { counter-reset: source-line 0; }
+            pre.numberSource code > span
+              { position: relative; left: -4em; counter-increment: source-line; }
+            pre.numberSource code > span > a:first-child::before
+              { content: counter(source-line);
+                position: relative; left: -1em; text-align: right; vertical-align: baseline;
+                border: none; display: inline-block;
+                -webkit-touch-callout: none; -webkit-user-select: none;
+                -khtml-user-select: none; -moz-user-select: none;
+                -ms-user-select: none; user-select: none;
+                padding: 0 4px; width: 4em;
+                color: #aaaaaa;
+              }
+            pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+            div.sourceCode
+              {   }
+            @media screen {
+            pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+            }
+            code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+            code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+            code span.at { color: #7d9029; } /* Attribute */
+            code span.bn { color: #40a070; } /* BaseN */
+            code span.bu { color: #008000; } /* BuiltIn */
+            code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+            code span.ch { color: #4070a0; } /* Char */
+            code span.cn { color: #880000; } /* Constant */
+            code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+            code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+            code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+            code span.dt { color: #902000; } /* DataType */
+            code span.dv { color: #40a070; } /* DecVal */
+            code span.er { color: #ff0000; font-weight: bold; } /* Error */
+            code span.ex { } /* Extension */
+            code span.fl { color: #40a070; } /* Float */
+            code span.fu { color: #06287e; } /* Function */
+            code span.im { color: #008000; font-weight: bold; } /* Import */
+            code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+            code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+            code span.op { color: #666666; } /* Operator */
+            code span.ot { color: #007020; } /* Other */
+            code span.pp { color: #bc7a00; } /* Preprocessor */
+            code span.sc { color: #4070a0; } /* SpecialChar */
+            code span.ss { color: #bb6688; } /* SpecialString */
+            code span.st { color: #4070a0; } /* String */
+            code span.va { color: #19177c; } /* Variable */
+            code span.vs { color: #4070a0; } /* VerbatimString */
+            code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+          </style>
+  <style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./images/favicon-16x16.png">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+
+  <script language="javascript" type="text/javascript">w3c_slidy.mouse_click_enabled = false;</script>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-41HMZ3JJJ6"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-41HMZ3JJJ6');
+  </script>
+  <script src="lib/header-attrs-2.26/header-attrs.js"></script>
+  <link href="lib/slidy-2/styles/slidy.css" rel="stylesheet" />
+  <script src="lib/slidy-2/scripts/slidy.js"></script>
+  <script src="lib/slidy_shiny-1/slidy_shiny.js"></script>
+  <link rel="stylesheet" type="text/css" media="screen, projection, print"
+   href="slidy2024.css" />
+</head>
+<body>
+<div class="slide titlepage">
+  <h1 class="title">Build a Degree Day Decision Support Tool in R</h1>
+  <h1 class="subtitle">Part 3. Shiny Apps</h1>
+  <p class="author">
+<img src='images/part1-cover-slide_740x300.png' style='width:740px; height:300px; margin-top:0.5em; margin-bottom:1em;'/><br/>May
+24,
+2024<br/><a href='https://ucanr-igis.github.io/degday-shiny-s24/' style='color:darkgreen; font-size:105%; font-family:monospace;'>https://ucanr-igis.github.io/degday-shiny-s24/
+</a>
+  </p>
+  <p class="date"><a ref='https://igis.ucanr.edu/'><img src='images/igis-logo_550x58x256.png' style='margin-top:1.5em;'/></a></p>
+</div>
+<div id="start-recording" class="slide section level1 hideme">
+<h1 class="hideme">Start Recording</h1>
+<script>
+w3c_slidy.mouse_click_enabled = false;
+</script>
+<p><br />
+</p>
+<p><br />
+</p>
+<p><img src="images/postit_bg-trans_with-note_320x320.png"
+style="display:block; margin:1em auto; border:none;" /></p>
+<style type="text/css">
+p.date {
+  text-align:left;
+}
+.grayme {
+  color:#888;
+}
+div.hideme > h1 {
+  display: none;
+}
+h3 {
+  font-weight: normal;
+  font-style: italic;
+}
+div.space_images {
+  max-width:900px;
+}
+</style>
+</div>
+<div id="big-picture" class="slide section level1">
+<h1>Big Picture</h1>
+<h2 id="part-1.-working-with-degree-day-models-in-r">Part 1. Working
+with degree day models in R</h2>
+<div class="compact">
+<ul>
+<li>computing daily degree days with <code>degday</code></li>
+<li>adding them up</li>
+<li>programmatically finding when threshhold values are met</li>
+<li>presenting the results</li>
+</ul>
+</div>
+<p><img src="images/dplyr_208x240.png"
+style="width:140px; margin:0 3em;" /> <img
+src="./images/degday_hexlogo_v1a_240x277.png"
+style="width:140px; " /></p>
+<p><br />
+</p>
+<h2 id="part-2.-working-with-weather-data-apis">Part 2. Working with
+Weather Data APIs</h2>
+<div class="compact">
+<ul>
+<li>calling an API with httr2</li>
+<li>rectangling the response into a tibble</li>
+</ul>
+</div>
+<p><img src="images/lubridate_140x162.png"
+style="width:140px; margin:0 3em;" /> <img
+src="./images/httr2_240x277.png" style="width:140px; " /></p>
+<p><br />
+</p>
+<h2 id="part-3.-weather-forecast-and-shiny-app">Part 3. Weather Forecast
+and Shiny app</h2>
+<div class="compact">
+<ul>
+<li>calling an API with httr2</li>
+<li>rectangling the response into a tibble</li>
+</ul>
+</div>
+<p><img src="images/openmeteo_140x161.png"
+style="width:140px; margin:0 3em;" /> <img
+src="./images/caladaptr-hexlogo_173x200.gif"
+style="width:140px; margin-right:3em;" /> <img
+src="./images/tidy-r_130x150.png"
+style="width:140px; margin-right:3em;" /> <img
+src="./images/shiny-hex_173x200.png" style="width:140px;" /></p>
+<p><br />
+</p>
+</div>
+<div id="part-2-review" class="slide section level1">
+<h1>Part 2 Review</h1>
+<p>Working with dates in R</p>
+<p>lubridate converting text to date-time objects, creating date-time
+objects from scratch time zones extracting date parts</p>
+<p>Redo the graphic API request - server - response - table</p>
+<p>Reading the docs</p>
+<p>Prepare the request Base URL URL path Query Parameters Headers
+Body</p>
+<p>sac_midcentury_req &lt;- request(“<a
+href="https://api.cal-adapt.org/api/series"
+class="uri">https://api.cal-adapt.org/api/series</a>”) |&gt;
+req_user_agent(“<a href="mailto:oski@berkeley.edu"
+class="email">oski@berkeley.edu</a>”) |&gt;
+req_url_path_append(“tasmax_year_MIROC5_rcp45/events”) |&gt;
+req_url_query(g = “POINT (-121.4687 38.5938)”, start = “2040-01-01”, end
+= “2070-12-31”)</p>
+<p>sac_midcentury_resp &lt;- sac_midcentury_req |&gt; req_perform()</p>
+<p>sac_midcentury_resp |&gt; resp_status_desc()</p>
+<p>sac_midcentury_lst &lt;- sac_midcentury_resp |&gt;
+resp_body_json()</p>
+<p>View(sac_midcentury_lst)</p>
+<p>Protecting your API token</p>
+<p>API Etiquette</p>
+<p>Exercise: Synoptic Data</p>
+<p>if there’s time</p>
+<p>Show a graph of degree days varieties over time: single-sine,
+double-sine (put this in part I)</p>
+</div>
+<div id="openmeteo" class="slide section level1 weatherapi-mod">
+<h1 class="weatherapi-mod">OpenMeteo</h1>
+<p><a href="https://open-meteo.com/"
+class="uri">https://open-meteo.com/</a></p>
+<h2 id="rest-endpoints">Rest EndPoints</h2>
+<div class="indented1">
+<h3 id="weather-forecast-api"><a
+href="https://open-meteo.com/en/docs">Weather Forecast API</a></h3>
+<div class="compact">
+<ul>
+<li>Forecasts for up to 16 days (default = 7)</li>
+<li>Hourly and daily data available</li>
+<li>Auto-select weather model for your region (default for USA is the
+NOAA GFS + HRRR)</li>
+</ul>
+</div>
+<h3 id="historic-weather-api"><a
+href="https://open-meteo.com/en/docs/historical-weather-api">Historic
+Weather API</a></h3>
+<div class="compact">
+<ul>
+<li>data back to 1940<br />
+</li>
+<li>~5-day delay in the data<br />
+</li>
+</ul>
+</div>
+<h3 id="other-apis">Other APIs</h3>
+<div class="compact">
+<ul>
+<li>Air Quality</li>
+<li>Marine Forecast</li>
+<li>Climate Change Forecast</li>
+<li>Geocode</li>
+<li>River Discharge</li>
+</ul>
+</div>
+</div>
+<p><br />
+</p>
+<h2 id="availability">Availability</h2>
+<div class="indented1">
+<p>No API key is required:</p>
+<div class="compact">
+<ul>
+<li>for non-commercial use<br />
+</li>
+<li>less than 10,000 daily API calls</li>
+</ul>
+</div>
+<p>R package:</p>
+<p><img src="images/openmeteo_140x161.png"
+style="width:140px; margin:0 3em;" /></p>
+<p><a href="https://cran.r-project.org/package=openmeteo"
+class="uri">https://cran.r-project.org/package=openmeteo</a></p>
+</div>
+<p><!----- class = indented1 ----></p>
+<p><br />
+</p>
+</div>
+<div id="cal-adapt" class="slide section level1 weatherapi-mod">
+<h1 class="weatherapi-mod">Cal-Adapt</h1>
+<p><a href="https://cal-adapt.org/"
+class="uri">https://cal-adapt.org/</a></p>
+<p>Downscaled modeled climate data for western USA (1950 - 2099)</p>
+<p>Gridded observed data: Livneh and gridMet</p>
+<p><a href="https://ucanr-igis.github.io/caladaptr/" target="_blank"
+rel="noopener"><img
+src="./images/caladaptr-hexlogo_173x200.gif" /></a><br/><a
+href="https://ucanr-igis.github.io/caladaptr/"
+class="uri">https://ucanr-igis.github.io/caladaptr/</a></p>
+<p><br />
+</p>
+</div>
+<div id="time-filtering" class="slide section level1 rmethod">
+<h1 class="rmethod">Time Filtering</h1>
+<h2 id="filter-based-on-a-date">Filter based on a date</h2>
+<p>First, make sure the date column is actually contains Date objects
+(or <code>POSIXct</code> for date-time values), as opposed to text:</p>
+<div class="indented2 indented2r">
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>espartoa_tbl <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">&quot;extdata/espartoa-weather-2020.csv&quot;</span>, <span class="at">package =</span> <span class="st">&quot;degday&quot;</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>  <span class="fu">read.csv</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">date =</span> <span class="fu">as.Date</span>(date)) </span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>espartoa_tbl <span class="sc">|&gt;</span> <span class="fu">head</span>()</span></code></pre></div>
+<pre><code>##     station       date tmin tmax
+## 1 Esparto.A 2020-01-01   38   55
+## 2 Esparto.A 2020-01-02   36   67
+## 3 Esparto.A 2020-01-03   33   59
+## 4 Esparto.A 2020-01-04   37   59
+## 5 Esparto.A 2020-01-05   38   63
+## 6 Esparto.A 2020-01-06   36   58</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">class</span>(espartoa_tbl<span class="sc">$</span>date)</span></code></pre></div>
+<pre><code>## [1] &quot;Date&quot;</code></pre>
+</div>
+<p><br />
+</p>
+<p>Filtering a data frame based on the date can be with
+<code>dplyr::filter()</code>. Just make sure the comparison values are
+also dates.</p>
+<p>For example, we can extract the values between St Patrick’s Day and
+Tax Day (April 15) in 2020:</p>
+<div class="indented2 indented2r">
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>espartoa_tbl <span class="sc">|&gt;</span> <span class="fu">filter</span>(date <span class="sc">&gt;=</span> <span class="fu">as.Date</span>(<span class="st">&quot;2020-03-17&quot;</span>), date <span class="sc">&lt;=</span> <span class="fu">as.Date</span>(<span class="st">&quot;2020-04-15&quot;</span>))</span></code></pre></div>
+<pre><code>##      station       date tmin tmax
+## 1  Esparto.A 2020-03-17   41   55
+## 2  Esparto.A 2020-03-18   43   53
+## 3  Esparto.A 2020-03-19   36   61
+## 4  Esparto.A 2020-03-20   35   64
+## 5  Esparto.A 2020-03-21   39   66
+## 6  Esparto.A 2020-03-22   40   69
+## 7  Esparto.A 2020-03-23   45   65
+## 8  Esparto.A 2020-03-24   40   58
+## 9  Esparto.A 2020-03-25   36   57
+## 10 Esparto.A 2020-03-26   34   61
+## 11 Esparto.A 2020-03-27   35   63
+## 12 Esparto.A 2020-03-28   46   58
+## 13 Esparto.A 2020-03-29   46   62
+## 14 Esparto.A 2020-03-30   45   67
+## 15 Esparto.A 2020-03-31   52   72
+## 16 Esparto.A 2020-04-01   46   66
+## 17 Esparto.A 2020-04-02   46   69
+## 18 Esparto.A 2020-04-03   40   67
+## 19 Esparto.A 2020-04-04   42   57
+## 20 Esparto.A 2020-04-05   45   56
+## 21 Esparto.A 2020-04-06   40   59
+## 22 Esparto.A 2020-04-07   42   66
+## 23 Esparto.A 2020-04-08   44   64
+## 24 Esparto.A 2020-04-09   49   64
+## 25 Esparto.A 2020-04-10   51   73
+## 26 Esparto.A 2020-04-11   47   72
+## 27 Esparto.A 2020-04-12   47   75
+## 28 Esparto.A 2020-04-13   48   77
+## 29 Esparto.A 2020-04-14   51   80
+## 30 Esparto.A 2020-04-15   43   81</code></pre>
+</div>
+<p><br />
+</p>
+<h2 id="filtering-with-date-parts">Filtering with Date Parts</h2>
+<p>Extract the in June, July, and August:</p>
+<div class="indented2 indented2r">
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>espartoa_tbl <span class="sc">|&gt;</span> </span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">month</span>(date) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>))</span></code></pre></div>
+<pre><code>##      station       date tmin tmax
+## 1  Esparto.A 2020-06-01   60   86
+## 2  Esparto.A 2020-06-02   60   95
+## 3  Esparto.A 2020-06-03   63  100
+## 4  Esparto.A 2020-06-04   60   98
+## 5  Esparto.A 2020-06-05   58   82
+## 6  Esparto.A 2020-06-06   58   78
+## 7  Esparto.A 2020-06-07   57   88
+## 8  Esparto.A 2020-06-08   58   83
+## 9  Esparto.A 2020-06-09   55   90
+## 10 Esparto.A 2020-06-10   63   96
+## 11 Esparto.A 2020-06-11   59   93
+## 12 Esparto.A 2020-06-12   58   76
+## 13 Esparto.A 2020-06-13   55   77
+## 14 Esparto.A 2020-06-14   59   84
+## 15 Esparto.A 2020-06-15   65   85
+## 16 Esparto.A 2020-06-16   60   81
+## 17 Esparto.A 2020-06-17   64   87
+## 18 Esparto.A 2020-06-18   59   94
+## 19 Esparto.A 2020-06-19   58   96
+## 20 Esparto.A 2020-06-20   56   91
+## 21 Esparto.A 2020-06-21   59   93
+## 22 Esparto.A 2020-06-22   59   99
+## 23 Esparto.A 2020-06-23   64   98
+## 24 Esparto.A 2020-06-24   62   99
+## 25 Esparto.A 2020-06-25   60   95
+## 26 Esparto.A 2020-06-26   59   95
+## 27 Esparto.A 2020-06-27   60   95
+## 28 Esparto.A 2020-06-28   59   87
+## 29 Esparto.A 2020-06-29   65   88
+## 30 Esparto.A 2020-06-30   60   91
+## 31 Esparto.A 2020-07-01   55   92
+## 32 Esparto.A 2020-07-02   55   88
+## 33 Esparto.A 2020-07-03   62   96
+## 34 Esparto.A 2020-07-04   53   93
+## 35 Esparto.A 2020-07-05   58   95
+## 36 Esparto.A 2020-07-06   56   90
+## 37 Esparto.A 2020-07-07   53   89
+## 38 Esparto.A 2020-07-08   65   94
+## 39 Esparto.A 2020-07-09   61   98
+## 40 Esparto.A 2020-07-10   60   98
+## 41 Esparto.A 2020-07-11   59  103
+## 42 Esparto.A 2020-07-12   59  101
+## 43 Esparto.A 2020-07-13   61   92
+## 44 Esparto.A 2020-07-14   58   92
+## 45 Esparto.A 2020-07-15   58   96
+## 46 Esparto.A 2020-07-16   62   94
+## 47 Esparto.A 2020-07-17   61   93
+## 48 Esparto.A 2020-07-18   60   96
+## 49 Esparto.A 2020-07-19   61   97
+## 50 Esparto.A 2020-07-20   60   96
+## 51 Esparto.A 2020-07-21   59   93
+## 52 Esparto.A 2020-07-22   60   96
+## 53 Esparto.A 2020-07-23   56   94
+## 54 Esparto.A 2020-07-24   58   94
+## 55 Esparto.A 2020-07-25   55   95
+## 56 Esparto.A 2020-07-26   60  100
+## 57 Esparto.A 2020-07-27   61  101
+## 58 Esparto.A 2020-07-28   59  100
+## 59 Esparto.A 2020-07-29   60   96
+## 60 Esparto.A 2020-07-30   60   96
+## 61 Esparto.A 2020-07-31   52   97
+## 62 Esparto.A 2020-08-01   53   94
+## 63 Esparto.A 2020-08-02   58   98
+## 64 Esparto.A 2020-08-03   60   99
+## 65 Esparto.A 2020-08-04   58   95
+## 66 Esparto.A 2020-08-05   59   95
+## 67 Esparto.A 2020-08-06   56   90
+## 68 Esparto.A 2020-08-07   61   96
+## 69 Esparto.A 2020-08-08   62   95
+## 70 Esparto.A 2020-08-09   62   98
+## 71 Esparto.A 2020-08-10   64   99
+## 72 Esparto.A 2020-08-11   61   93
+## 73 Esparto.A 2020-08-12   57   97
+## 74 Esparto.A 2020-08-13   60   97
+## 75 Esparto.A 2020-08-14   71  103
+## 76 Esparto.A 2020-08-15   68  107
+## 77 Esparto.A 2020-08-16   60   96
+## 78 Esparto.A 2020-08-17   59   95
+## 79 Esparto.A 2020-08-18   71  102
+## 80 Esparto.A 2020-08-19   71   97
+## 81 Esparto.A 2020-08-20   62   85
+## 82 Esparto.A 2020-08-21   59   91
+## 83 Esparto.A 2020-08-22   67   97
+## 84 Esparto.A 2020-08-23   61   97
+## 85 Esparto.A 2020-08-24   67   96
+## 86 Esparto.A 2020-08-25   58   94
+## 87 Esparto.A 2020-08-26   58   95
+## 88 Esparto.A 2020-08-27   54   92
+## 89 Esparto.A 2020-08-28   59   94
+## 90 Esparto.A 2020-08-29   61   94
+## 91 Esparto.A 2020-08-30   60   91
+## 92 Esparto.A 2020-08-31   60   96</code></pre>
+</div>
+<p><br />
+</p>
+</div>
+<div id="resampling-the-temporal-resolution-with-date-parts"
+class="slide section level1 rmethod">
+<h1 class="rmethod">Resampling the temporal resolution with date
+parts</h1>
+<p>The standard way to resample involves <code>group_by()</code>
+followed by <code>summarise()</code>.</p>
+<p>FOr example to resample by month:</p>
+<div class="indented2 indented2r">
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>espartoa_tbl <span class="sc">|&gt;</span> </span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">month =</span> <span class="fu">month</span>(date)) <span class="sc">|&gt;</span> </span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>  <span class="fu">group_by</span>(month) <span class="sc">|&gt;</span> </span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">tmin_mean =</span> <span class="fu">mean</span>(tmin), <span class="at">tmax_mean =</span> <span class="fu">mean</span>(tmax), <span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 12 × 3
+##    month tmin_mean tmax_mean
+##    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+##  1     1      39.3      58.4
+##  2     2      41.1      68.0
+##  3     3      41.9      64.5
+##  4     4      49.3      74.5
+##  5     5      54.1      83.5
+##  6     6      59.7      90  
+##  7     7      58.6      95.3
+##  8     8      61.2      95.7
+##  9     9      58.1      91.0
+## 10    10      50.7      84.6
+## 11    11      39.1      66.9
+## 12    12      37.6      58.9</code></pre>
+</div>
+<p><br />
+</p>
+<!------------ show an example of hourly to daily measurements ----->
+</div>
+<div id="building-up-tables-within-a-loop"
+class="slide section level1 rmethod">
+<h1 class="rmethod">Building up tables within a loop</h1>
+<p>Often you have to “build up” a table thru multiple API calls.</p>
+<p>A common way to do this is thru a loop. (For large data, consider
+also appending to a database).)</p>
+<div class="indented2 indented2r">
+<pre><code>my_master_weather_tbl &lt;- NULL
+
+for (i in &lt;something or other&gt;) {
+  one_bunch_of_data_tbl &lt;- tibble(...)
+  my_master_weather_tbl &lt;- bind_rows(my_master_weather_tbl, one_bunch_of_data)
+}
+
+my_master_weather_tbl    ## Contains everything!!</code></pre>
+</div>
+<p><br />
+</p>
+</div>
+<div id="reshaping-data-frames" class="slide section level1 rmethod">
+<h1 class="rmethod">Reshaping Data Frames</h1>
+<p><em>Reshaping</em> data includes:</p>
+<div class="compact">
+<ul>
+<li>turning rows into columns (aka pivot tables, cross tab query)<br />
+</li>
+<li>turning columns into rows</li>
+</ul>
+</div>
+<p>The go-to Tidyverse package for reshaping data frames is <a
+href="https://tidyr.tidyverse.org" target="_blank"
+rel="noopener"><tt><strong>tidyr</strong></tt></a></p>
+<p><br />
+</p>
+<div class="centerme">
+<p><a href="https://rawgit.com/rstudio/cheatsheets/master/tidyr.pdf"
+target="_blank" rel="noopener"><img
+src="images/tidyr_cheatsheet_600x464x256.png"
+style="border:1px solid grey;" /></a></p>
+</div>
+<p><br />
+</p>
+<h2 id="pivot-functions">Pivot Functions</h2>
+<div class="indented2" style="text-align:center;">
+<p><em><code>pivot_longer()</code></em><br />
+<img src="images/pivot_longer_566x212x256.png" /></p>
+<p><em><code>pivot_wider()</code></em><br />
+<img src="images/pivot_wider_674x336x256.png" /></p>
+</div>
+<p>More info and examples in the tidyr <a
+href="https://tidyr.tidyverse.org/articles/pivot.html" target="_blank"
+rel="noopener"><strong>Pivoting Vignette</strong></a></p>
+<p><br />
+</p>
+</div>
+<div id="caching-data" class="slide section level1 rmethod">
+<h1 class="rmethod">Caching data</h1>
+<!------------------
+OTHER
+
+Tip: Days begin at midnight (`00:00:00`) and end at `23:59:59`. 
+
+Creating tibbles with code
+
+# R Methods: Writing Your Own API Function
+
+
+
+------>
+</div>
+<div id="exercises-3-4-download-forecasts" class="slide section level1">
+<h1>Exercises 3 &amp; 4: Download Forecasts</h1>
+<h2 id="posit-cloud-users">Posit Cloud users</h2>
+<div class="indented2">
+<p><a
+href="https://posit.cloud/content/8248361">https://posit.cloud/content/8248361</a></p>
+</div>
+<div class="indented2">
+<p>Click ‘Save a permanent copy’</p>
+<p>Done!</p>
+</div>
+<p><br />
+</p>
+<h2 id="rstudio-desktop-power-users">RStudio Desktop Power Users</h2>
+<h3 id="download-rstudio-project">1. Download RStudio project</h3>
+<div class="indented2">
+<p>Download a RStudio project with all the exercises and data:</p>
+<h4 id="option-1">Option 1</h4>
+<div class="indented2">
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="do">## Download and open on desktop</span></span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">use_course</span>(<span class="st">&quot;https://bit.ly/degday-weather-wrkshp-rproj-s24-pt3&quot;</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a><span class="do">## Download to a specific location </span></span>
+<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a><span class="do">## usethis::use_course(&quot;https://bit.ly/degday-weather-wrkshp-rproj-s24-pt3&quot;, destdir = &quot;c:/workshops&quot;)</span></span></code></pre></div>
+</div>
+<h4 id="option-2">Option 2</h4>
+<div class="indented2">
+<div class="compact">
+<ol style="list-style-type: decimal">
+<li>download zip file: <a
+href="https://bit.ly/degday-weather-wrkshp-rproj-s24-pt3"
+class="uri">https://bit.ly/degday-weather-wrkshp-rproj-s24-pt3</a><br />
+</li>
+<li>unzip<br />
+</li>
+<li>open <tt>degday-shiny-s24.Rproj</tt></li>
+</ol>
+</div>
+</div>
+<p><br />
+</p>
+</div>
+<h3 id="install-the-required-packages-see">2. Install the required
+packages, see:</h3>
+<div class="indented2">
+<p><tt>/scripts/install_packages.R</tt></p>
+</div>
+<p><br />
+</p>
+</div>
+<div id="decision-support-tools" class="slide section level1">
+<h1>Decision Support Tools</h1>
+<h2 id="goals">Goals</h2>
+<div class="indented2">
+<p>Provide useful information in useful ways</p>
+<p>Do no harm</p>
+<p>Be transparent about:</p>
+<div class="compact">
+<ul>
+<li>the model<br />
+</li>
+<li>the weather data<br />
+</li>
+</ul>
+</div>
+</div>
+<p><br />
+</p>
+<h2 id="top-five-best-practices">Top Five Best Practices</h2>
+<div class="indented2">
+<ul class="incremental">
+<li>Discuss &gt; Design &gt; Develop</li>
+</ul>
+<ul class="incremental">
+<li>Keep it simple (especially the UI)</li>
+</ul>
+<ul class="incremental">
+<li>Start small:<br/>  - limited geography<br/>  - limited models</li>
+</ul>
+<ul class="incremental">
+<li>Testing, testing, testing</li>
+</ul>
+<ul class="incremental">
+<li>Don’t underestimate what you don’t know about building and hosting
+production web apps</li>
+</ul>
+</div>
+<!------------ If there's room: Think about sustainability and longevity  --------->
+<p><br />
+</p>
+</div>
+<div id="reactive-programming" class="slide section level1">
+<h1>Reactive Programming</h1>
+<p><img src="images/reactivity_990x650.png" /></p>
+<!----------------------
+# Shiny Best Practices
+
+Shiny projects are folders
+
+The working directory is
+
+Be judicious about importing packages
+
+use functions for code that manipulates data or perform analyses
+------------------->
+</div>
+<div id="exericse-shiny-time" class="slide section level1">
+<h1>Exericse: Shiny Time!</h1>
+<p><a href="https://ucanr-igis.shinyapps.io/degday-demo"
+class="uri">https://ucanr-igis.shinyapps.io/degday-demo</a></p>
+<!------------- post exercise -------------->
+</div>
+<div id="where-to-go-from-here" class="slide section level1">
+<h1>Where to go from here?</h1>
+<p><br />
+</p>
+<h2 id="publish-your-app">Publish Your App</h2>
+<div class="compact">
+<ul>
+<li>Click the ‘Publish’ button next to ‘Run app’</li>
+</ul>
+</div>
+<p><br />
+</p>
+<h2 id="learn-more-about-shiny-reactive-programming">Learn More About
+Shiny / Reactive Programming</h2>
+<div class="compact">
+<ul>
+<li>Shiny <a
+href="https://www.youtube.com/playlist?list=PL9HYL-VRX0oRbLoj3FyL5zeASU5FMDgVe">Playlist</a></li>
+</ul>
+</div>
+<p><br />
+</p>
+<h2 id="ui-enhancements">UI Enhancements</h2>
+<div class="compact">
+<ul>
+<li>Select location with a leaflet map<br />
+</li>
+<li>Add instructions<br />
+</li>
+<li>Interactive plots and tables<br />
+</li>
+<li>Make it multilingual (<a
+href="https://appsilon.github.io/shiny.i18n/">shiny.i18n</a>)<br />
+</li>
+<li>Customize the appearance<br />
+</li>
+<li>Make it more mobile friendly<br />
+</li>
+</ul>
+</div>
+<p><br />
+</p>
+<h2 id="backend-enhancements">Backend Enhancements</h2>
+<div class="compact">
+<ul>
+<li>Cache weather data<br />
+</li>
+<li>Use degree day models that predict continuous variables</li>
+</ul>
+</div>
+<p><br />
+</p>
+<h2 id="join-the-movement">Join the Movement</h2>
+<div class="compact">
+<ul>
+<li><a
+href="https://ucanr-igis.github.io/agroclimate-cookbook/">Agroclimate
+Community Cookbook</a></li>
+<li><a href="https://igis.ucanr.edu/Office_Hours/">IGIS Office
+Hours</a><br />
+</li>
+<li>DST community of practice</li>
+</ul>
+<div class="compact indented2">
+<ul>
+<li><a href="https://ucanr-igis.github.io/degree-day-challenge/">degree
+day validation challenge</a></li>
+<li>comparing weather data sources</li>
+<li>machine-readable open-access model library<br />
+</li>
+<li>R wrappers for Weather APIs</li>
+<li>shareable back-end resources on AWS</li>
+<li>Python
+<div>
+</li>
+</ul>
+</div>
+</div>
+
+  <!-- dynamically load mathjax for compatibility with self-contained -->
+  <script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script>
+
+</body>
+</html>

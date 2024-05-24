@@ -1,0 +1,13 @@
+name: degday-demo
+title: degday-demo
+username: ucanr-igis
+account: ucanr-igis
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 12062412
+bundleId: 8654824
+url: https://ucanr-igis.shinyapps.io/degday-demo/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: app1.R|app2.R|app2_complete.R|app3.R|app3_complete.R|app4.R|app4_completed.R|app5.R|app5_copmlete.R|app6.R|app6_completed.R|app7.R|app7_completed.R|app8.R|app8_completed.R|app9.R|appX.R

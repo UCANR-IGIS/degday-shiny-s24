@@ -120,6 +120,7 @@ Summary
 <li>
 <code>tasmax</code>: maximum daily temperature</li>
 </ul>
+<p><img src="./images/oakville_recent_past.png" class="img-fluid"></p>
 </div>
 </div>
 <p><br></p>
@@ -223,7 +224,7 @@ Pro Tip
 <span></span>
 <span><span class="va">yesterday_11pm_pdt_dt</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "2024-05-09 23:00:00 PDT"</code></pre>
+<pre><code>[1] "2024-05-21 23:00:00 PDT"</code></pre>
 </div>
 </div>
 <p><br></p>
@@ -232,7 +233,7 @@ Pro Tip
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">end_utc_chr</span> <span class="op">&lt;-</span> <span class="va">yesterday_11pm_pdt_dt</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/with_tz.html">with_tz</a></span><span class="op">(</span><span class="st">"UTC"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/format.html">format</a></span><span class="op">(</span><span class="st">"%Y%m%d%H%M"</span><span class="op">)</span></span>
 <span><span class="va">end_utc_chr</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "202405100600"</code></pre>
+<pre><code>[1] "202405220600"</code></pre>
 </div>
 </div>
 <p><br></p>
@@ -262,7 +263,7 @@ Pro Tip
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>GET
-https://api.synopticdata.com/v2/stations/timeseries?token=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&amp;start=202401010800&amp;end=202405100600&amp;stid=CI077&amp;vars=air_temp&amp;units=english&amp;obtimezone=local</code></pre>
+https://api.synopticdata.com/v2/stations/timeseries?token=91b8e95d3af4443aa981b43d25be7e06%20&amp;start=202401010800&amp;end=202405220600&amp;stid=CI077&amp;vars=air_temp&amp;units=english&amp;obtimezone=local</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Headers:</code></pre>
@@ -281,7 +282,7 @@ https://api.synopticdata.com/v2/stations/timeseries?token=xxxxxxxxxxxxxxxxxxxxxx
 <div class="cell">
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">stn_tas_req</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://httr2.r-lib.org/reference/req_dry_run.html">req_dry_run</a></span><span class="op">(</span><span class="op">)</span>  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>GET /v2/stations/timeseries?token=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&amp;start=202401010800&amp;end=202405100600&amp;stid=CI077&amp;vars=air_temp&amp;units=english&amp;obtimezone=local HTTP/1.1
+<pre><code>GET /v2/stations/timeseries?token=91b8e95d3af4443aa981b43d25be7e06%20&amp;start=202401010800&amp;end=202405220600&amp;stid=CI077&amp;vars=air_temp&amp;units=english&amp;obtimezone=local HTTP/1.1
 Host: api.synopticdata.com
 User-Agent: httr2/1.0.1 r-curl/5.2.1 libcurl/8.3.0
 Accept-Encoding: deflate, gzip
@@ -305,7 +306,7 @@ Accept: application/json</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>GET
-https://api.synopticdata.com/v2/stations/timeseries?token=414c045492a344f4b640f1d02d8a64df&amp;start=202401010800&amp;end=202405100600&amp;stid=CI077&amp;vars=air_temp&amp;units=english&amp;obtimezone=local</code></pre>
+https://api.synopticdata.com/v2/stations/timeseries?token=91b8e95d3af4443aa981b43d25be7e06%20&amp;start=202401010800&amp;end=202405220600&amp;stid=CI077&amp;vars=air_temp&amp;units=english&amp;obtimezone=local</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Status: 200 OK</code></pre>
@@ -314,7 +315,7 @@ https://api.synopticdata.com/v2/stations/timeseries?token=414c045492a344f4b640f1
 <pre><code>Content-Type: application/json</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Body: In memory (66944 bytes)</code></pre>
+<pre><code>Body: In memory (76161 bytes)</code></pre>
 </div>
 </div>
 <p><br></p>
@@ -390,11 +391,11 @@ Pro Tip
   ..$ NUMBER_OF_OBJECTS     : int 1
   ..$ RESPONSE_CODE         : int 1
   ..$ RESPONSE_MESSAGE      : chr "OK"
-  ..$ METADATA_RESPONSE_TIME: chr "103.8 ms"
-  ..$ DATA_QUERY_TIME       : chr "12.0 ms"
-  ..$ QC_QUERY_TIME         : chr "14.8 ms"
-  ..$ DATA_PARSING_TIME     : chr "30.3 ms"
-  ..$ TOTAL_DATA_TIME       : chr "57.2 ms"
+  ..$ METADATA_RESPONSE_TIME: chr "105.5 ms"
+  ..$ DATA_QUERY_TIME       : chr "34.3 ms"
+  ..$ QC_QUERY_TIME         : chr "52.6 ms"
+  ..$ DATA_PARSING_TIME     : chr "26.7 ms"
+  ..$ TOTAL_DATA_TIME       : chr "113.7 ms"
   ..$ VERSION               : chr "v2.24.3"
  $ QC_SUMMARY:List of 3
   ..$ QC_CHECKS_APPLIED                    :List of 1
@@ -431,7 +432,9 @@ Pro Tip
 <p><br></p>
 <p>Extract the date-times:</p>
 <div class="cell">
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">obs_dt</span> <span class="op">&lt;-</span> <span class="va">stn_tas_stationdata</span><span class="op">$</span><span class="va">OBSERVATIONS</span><span class="op">$</span><span class="va">date_time</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd_hms.html">ymd_hms</a></span><span class="op">(</span>tz <span class="op">=</span> <span class="st">"America/Los_Angeles"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">obs_dt</span> <span class="op">&lt;-</span> <span class="va">stn_tas_stationdata</span><span class="op">$</span><span class="va">OBSERVATIONS</span><span class="op">$</span><span class="va">date_time</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd_hms.html">ymd_hms</a></span><span class="op">(</span>tz <span class="op">=</span> <span class="st">"America/Los_Angeles"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Date in ISO8601 format; converting timezone from UTC to "America/Los_Angeles".</code></pre>
 </div>
@@ -442,7 +445,7 @@ Pro Tip
 </div>
 <div class="sourceCode" id="cb45"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">obs_dt</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 2063</code></pre>
+<pre><code>[1] 2351</code></pre>
 </div>
 <div class="sourceCode" id="cb47"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">obs_dt</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -452,7 +455,7 @@ Pro Tip
 </div>
 <div class="sourceCode" id="cb49"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/range.html">range</a></span><span class="op">(</span><span class="va">obs_dt</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "2024-01-01 00:00:00 PST" "2024-05-09 23:00:00 PDT"</code></pre>
+<pre><code>[1] "2024-01-01 00:00:00 PST" "2024-05-21 23:00:00 PDT"</code></pre>
 </div>
 </div>
 <p><br></p>
@@ -465,7 +468,7 @@ Pro Tip
 </div>
 <div class="sourceCode" id="cb53"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">obs_tas</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 2063</code></pre>
+<pre><code>[1] 2351</code></pre>
 </div>
 </div>
 <p><br></p>
@@ -513,7 +516,7 @@ Pro Tip
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["stid"],"name":[1],"type":["chr"],"align":["left"]},{"label":["date"],"name":[2],"type":["date"],"align":["right"]},{"label":["count_obs"],"name":[3],"type":["int"],"align":["right"]},{"label":["tasmin"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["tasmax"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"CI077","2":"2024-01-01","3":"24","4":"42.3","5":"62.1"},{"1":"CI077","2":"2024-01-02","3":"24","4":"39.8","5":"56.2"},{"1":"CI077","2":"2024-01-03","3":"24","4":"40.2","5":"56.8"},{"1":"CI077","2":"2024-01-04","3":"24","4":"37.6","5":"60.9"},{"1":"CI077","2":"2024-01-05","3":"24","4":"40.5","5":"64.3"},{"1":"CI077","2":"2024-01-06","3":"24","4":"35.2","5":"52.1"},{"1":"CI077","2":"2024-01-07","3":"24","4":"30.4","5":"54.8"},{"1":"CI077","2":"2024-01-08","3":"12","4":"31.4","5":"46.2"},{"1":"CI077","2":"2024-02-21","3":"13","4":"43.4","5":"57.4"},{"1":"CI077","2":"2024-02-22","3":"24","4":"37.8","5":"62.0"},{"1":"CI077","2":"2024-02-23","3":"24","4":"41.9","5":"67.7"},{"1":"CI077","2":"2024-02-24","3":"24","4":"44.1","5":"72.5"},{"1":"CI077","2":"2024-02-25","3":"24","4":"40.6","5":"66.8"},{"1":"CI077","2":"2024-02-26","3":"24","4":"41.9","5":"62.1"},{"1":"CI077","2":"2024-02-27","3":"24","4":"34.1","5":"65.8"},{"1":"CI077","2":"2024-02-28","3":"24","4":"35.0","5":"67.3"},{"1":"CI077","2":"2024-02-29","3":"24","4":"41.9","5":"56.7"},{"1":"CI077","2":"2024-03-01","3":"24","4":"47.7","5":"54.4"},{"1":"CI077","2":"2024-03-02","3":"24","4":"40.2","5":"50.1"},{"1":"CI077","2":"2024-03-03","3":"24","4":"38.1","5":"51.6"},{"1":"CI077","2":"2024-03-04","3":"24","4":"35.6","5":"52.8"},{"1":"CI077","2":"2024-03-05","3":"24","4":"48.1","5":"56.3"},{"1":"CI077","2":"2024-03-06","3":"24","4":"45.7","5":"60.6"},{"1":"CI077","2":"2024-03-07","3":"24","4":"40.6","5":"64.7"},{"1":"CI077","2":"2024-03-08","3":"24","4":"39.9","5":"66.7"},{"1":"CI077","2":"2024-03-09","3":"24","4":"39.4","5":"58.0"},{"1":"CI077","2":"2024-03-10","3":"23","4":"40.0","5":"59.6"},{"1":"CI077","2":"2024-03-11","3":"24","4":"37.5","5":"58.5"},{"1":"CI077","2":"2024-03-12","3":"24","4":"43.7","5":"61.4"},{"1":"CI077","2":"2024-03-13","3":"24","4":"40.5","5":"67.7"},{"1":"CI077","2":"2024-03-14","3":"24","4":"51.2","5":"66.9"},{"1":"CI077","2":"2024-03-15","3":"24","4":"46.2","5":"72.3"},{"1":"CI077","2":"2024-03-16","3":"24","4":"38.6","5":"72.7"},{"1":"CI077","2":"2024-03-17","3":"24","4":"39.2","5":"70.8"},{"1":"CI077","2":"2024-03-18","3":"24","4":"40.8","5":"71.9"},{"1":"CI077","2":"2024-03-19","3":"24","4":"44.8","5":"70.9"},{"1":"CI077","2":"2024-03-20","3":"24","4":"38.5","5":"70.5"},{"1":"CI077","2":"2024-03-21","3":"24","4":"42.2","5":"67.4"},{"1":"CI077","2":"2024-03-22","3":"24","4":"42.9","5":"63.1"},{"1":"CI077","2":"2024-03-23","3":"24","4":"47.5","5":"57.2"},{"1":"CI077","2":"2024-03-24","3":"24","4":"44.1","5":"62.7"},{"1":"CI077","2":"2024-03-25","3":"24","4":"42.1","5":"63.2"},{"1":"CI077","2":"2024-03-26","3":"24","4":"37.9","5":"66.3"},{"1":"CI077","2":"2024-03-27","3":"24","4":"40.2","5":"55.6"},{"1":"CI077","2":"2024-03-28","3":"23","4":"44.9","5":"57.2"},{"1":"CI077","2":"2024-03-29","3":"24","4":"42.9","5":"49.8"},{"1":"CI077","2":"2024-03-30","3":"24","4":"43.4","5":"60.9"},{"1":"CI077","2":"2024-03-31","3":"24","4":"43.2","5":"66.2"},{"1":"CI077","2":"2024-04-01","3":"24","4":"41.5","5":"75.4"},{"1":"CI077","2":"2024-04-02","3":"24","4":"42.1","5":"72.3"},{"1":"CI077","2":"2024-04-03","3":"24","4":"46.2","5":"65.4"},{"1":"CI077","2":"2024-04-04","3":"24","4":"40.7","5":"48.9"},{"1":"CI077","2":"2024-04-05","3":"24","4":"37.9","5":"55.1"},{"1":"CI077","2":"2024-04-06","3":"24","4":"34.2","5":"59.7"},{"1":"CI077","2":"2024-04-07","3":"24","4":"36.9","5":"63.1"},{"1":"CI077","2":"2024-04-08","3":"24","4":"38.4","5":"73.4"},{"1":"CI077","2":"2024-04-09","3":"24","4":"41.3","5":"77.7"},{"1":"CI077","2":"2024-04-10","3":"24","4":"45.0","5":"79.2"},{"1":"CI077","2":"2024-04-11","3":"24","4":"47.3","5":"81.7"},{"1":"CI077","2":"2024-04-12","3":"24","4":"44.0","5":"63.0"},{"1":"CI077","2":"2024-04-13","3":"24","4":"43.8","5":"54.4"},{"1":"CI077","2":"2024-04-14","3":"24","4":"42.2","5":"56.9"},{"1":"CI077","2":"2024-04-15","3":"24","4":"40.8","5":"67.2"},{"1":"CI077","2":"2024-04-16","3":"24","4":"43.8","5":"75.3"},{"1":"CI077","2":"2024-04-17","3":"24","4":"47.6","5":"76.5"},{"1":"CI077","2":"2024-04-18","3":"24","4":"49.3","5":"78.7"},{"1":"CI077","2":"2024-04-19","3":"24","4":"49.4","5":"71.7"},{"1":"CI077","2":"2024-04-20","3":"24","4":"45.9","5":"77.4"},{"1":"CI077","2":"2024-04-21","3":"24","4":"45.1","5":"82.2"},{"1":"CI077","2":"2024-04-22","3":"24","4":"51.9","5":"78.3"},{"1":"CI077","2":"2024-04-23","3":"24","4":"52.4","5":"61.4"},{"1":"CI077","2":"2024-04-24","3":"24","4":"52.3","5":"64.8"},{"1":"CI077","2":"2024-04-25","3":"24","4":"51.0","5":"68.5"},{"1":"CI077","2":"2024-04-26","3":"24","4":"48.9","5":"69.0"},{"1":"CI077","2":"2024-04-27","3":"24","4":"42.3","5":"70.6"},{"1":"CI077","2":"2024-04-28","3":"24","4":"45.9","5":"76.7"},{"1":"CI077","2":"2024-04-29","3":"24","4":"47.3","5":"75.5"},{"1":"CI077","2":"2024-04-30","3":"24","4":"43.9","5":"75.6"},{"1":"CI077","2":"2024-05-01","3":"24","4":"40.9","5":"80.1"},{"1":"CI077","2":"2024-05-02","3":"24","4":"47.6","5":"79.8"},{"1":"CI077","2":"2024-05-03","3":"24","4":"49.8","5":"78.5"},{"1":"CI077","2":"2024-05-04","3":"24","4":"44.0","5":"56.0"},{"1":"CI077","2":"2024-05-05","3":"24","4":"39.0","5":"64.0"},{"1":"CI077","2":"2024-05-06","3":"24","4":"37.7","5":"67.8"},{"1":"CI077","2":"2024-05-07","3":"24","4":"42.4","5":"75.0"},{"1":"CI077","2":"2024-05-08","3":"24","4":"50.8","5":"77.9"},{"1":"CI077","2":"2024-05-09","3":"24","4":"55.5","5":"82.7"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["stid"],"name":[1],"type":["chr"],"align":["left"]},{"label":["date"],"name":[2],"type":["date"],"align":["right"]},{"label":["count_obs"],"name":[3],"type":["int"],"align":["right"]},{"label":["tasmin"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["tasmax"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"CI077","2":"2024-01-01","3":"24","4":"42.3","5":"62.1"},{"1":"CI077","2":"2024-01-02","3":"24","4":"39.8","5":"56.2"},{"1":"CI077","2":"2024-01-03","3":"24","4":"40.2","5":"56.8"},{"1":"CI077","2":"2024-01-04","3":"24","4":"37.6","5":"60.9"},{"1":"CI077","2":"2024-01-05","3":"24","4":"40.5","5":"64.3"},{"1":"CI077","2":"2024-01-06","3":"24","4":"35.2","5":"52.1"},{"1":"CI077","2":"2024-01-07","3":"24","4":"30.4","5":"54.8"},{"1":"CI077","2":"2024-01-08","3":"12","4":"31.4","5":"46.2"},{"1":"CI077","2":"2024-02-21","3":"13","4":"43.4","5":"57.4"},{"1":"CI077","2":"2024-02-22","3":"24","4":"37.8","5":"62.0"},{"1":"CI077","2":"2024-02-23","3":"24","4":"41.9","5":"67.7"},{"1":"CI077","2":"2024-02-24","3":"24","4":"44.1","5":"72.5"},{"1":"CI077","2":"2024-02-25","3":"24","4":"40.6","5":"66.8"},{"1":"CI077","2":"2024-02-26","3":"24","4":"41.9","5":"62.1"},{"1":"CI077","2":"2024-02-27","3":"24","4":"34.1","5":"65.8"},{"1":"CI077","2":"2024-02-28","3":"24","4":"35.0","5":"67.3"},{"1":"CI077","2":"2024-02-29","3":"24","4":"41.9","5":"56.7"},{"1":"CI077","2":"2024-03-01","3":"24","4":"47.7","5":"54.4"},{"1":"CI077","2":"2024-03-02","3":"24","4":"40.2","5":"50.1"},{"1":"CI077","2":"2024-03-03","3":"24","4":"38.1","5":"51.6"},{"1":"CI077","2":"2024-03-04","3":"24","4":"35.6","5":"52.8"},{"1":"CI077","2":"2024-03-05","3":"24","4":"48.1","5":"56.3"},{"1":"CI077","2":"2024-03-06","3":"24","4":"45.7","5":"60.6"},{"1":"CI077","2":"2024-03-07","3":"24","4":"40.6","5":"64.7"},{"1":"CI077","2":"2024-03-08","3":"24","4":"39.9","5":"66.7"},{"1":"CI077","2":"2024-03-09","3":"24","4":"39.4","5":"58.0"},{"1":"CI077","2":"2024-03-10","3":"23","4":"40.0","5":"59.6"},{"1":"CI077","2":"2024-03-11","3":"24","4":"37.5","5":"58.5"},{"1":"CI077","2":"2024-03-12","3":"24","4":"43.7","5":"61.4"},{"1":"CI077","2":"2024-03-13","3":"24","4":"40.5","5":"67.7"},{"1":"CI077","2":"2024-03-14","3":"24","4":"51.2","5":"66.9"},{"1":"CI077","2":"2024-03-15","3":"24","4":"46.2","5":"72.3"},{"1":"CI077","2":"2024-03-16","3":"24","4":"38.6","5":"72.7"},{"1":"CI077","2":"2024-03-17","3":"24","4":"39.2","5":"70.8"},{"1":"CI077","2":"2024-03-18","3":"24","4":"40.8","5":"71.9"},{"1":"CI077","2":"2024-03-19","3":"24","4":"44.8","5":"70.9"},{"1":"CI077","2":"2024-03-20","3":"24","4":"38.5","5":"70.5"},{"1":"CI077","2":"2024-03-21","3":"24","4":"42.2","5":"67.4"},{"1":"CI077","2":"2024-03-22","3":"24","4":"42.9","5":"63.1"},{"1":"CI077","2":"2024-03-23","3":"24","4":"47.5","5":"57.2"},{"1":"CI077","2":"2024-03-24","3":"24","4":"44.1","5":"62.7"},{"1":"CI077","2":"2024-03-25","3":"24","4":"42.1","5":"63.2"},{"1":"CI077","2":"2024-03-26","3":"24","4":"37.9","5":"66.3"},{"1":"CI077","2":"2024-03-27","3":"24","4":"40.2","5":"55.6"},{"1":"CI077","2":"2024-03-28","3":"23","4":"44.9","5":"57.2"},{"1":"CI077","2":"2024-03-29","3":"24","4":"42.9","5":"49.8"},{"1":"CI077","2":"2024-03-30","3":"24","4":"43.4","5":"60.9"},{"1":"CI077","2":"2024-03-31","3":"24","4":"43.2","5":"66.2"},{"1":"CI077","2":"2024-04-01","3":"24","4":"41.5","5":"75.4"},{"1":"CI077","2":"2024-04-02","3":"24","4":"42.1","5":"72.3"},{"1":"CI077","2":"2024-04-03","3":"24","4":"46.2","5":"65.4"},{"1":"CI077","2":"2024-04-04","3":"24","4":"40.7","5":"48.9"},{"1":"CI077","2":"2024-04-05","3":"24","4":"37.9","5":"55.1"},{"1":"CI077","2":"2024-04-06","3":"24","4":"34.2","5":"59.7"},{"1":"CI077","2":"2024-04-07","3":"24","4":"36.9","5":"63.1"},{"1":"CI077","2":"2024-04-08","3":"24","4":"38.4","5":"73.4"},{"1":"CI077","2":"2024-04-09","3":"24","4":"41.3","5":"77.7"},{"1":"CI077","2":"2024-04-10","3":"24","4":"45.0","5":"79.2"},{"1":"CI077","2":"2024-04-11","3":"24","4":"47.3","5":"81.7"},{"1":"CI077","2":"2024-04-12","3":"24","4":"44.0","5":"63.0"},{"1":"CI077","2":"2024-04-13","3":"24","4":"43.8","5":"54.4"},{"1":"CI077","2":"2024-04-14","3":"24","4":"42.2","5":"56.9"},{"1":"CI077","2":"2024-04-15","3":"24","4":"40.8","5":"67.2"},{"1":"CI077","2":"2024-04-16","3":"24","4":"43.8","5":"75.3"},{"1":"CI077","2":"2024-04-17","3":"24","4":"47.6","5":"76.5"},{"1":"CI077","2":"2024-04-18","3":"24","4":"49.3","5":"78.7"},{"1":"CI077","2":"2024-04-19","3":"24","4":"49.4","5":"71.7"},{"1":"CI077","2":"2024-04-20","3":"24","4":"45.9","5":"77.4"},{"1":"CI077","2":"2024-04-21","3":"24","4":"45.1","5":"82.2"},{"1":"CI077","2":"2024-04-22","3":"24","4":"51.9","5":"78.3"},{"1":"CI077","2":"2024-04-23","3":"24","4":"52.4","5":"61.4"},{"1":"CI077","2":"2024-04-24","3":"24","4":"52.3","5":"64.8"},{"1":"CI077","2":"2024-04-25","3":"24","4":"51.0","5":"68.5"},{"1":"CI077","2":"2024-04-26","3":"24","4":"48.9","5":"69.0"},{"1":"CI077","2":"2024-04-27","3":"24","4":"42.3","5":"70.6"},{"1":"CI077","2":"2024-04-28","3":"24","4":"45.9","5":"76.7"},{"1":"CI077","2":"2024-04-29","3":"24","4":"47.3","5":"75.5"},{"1":"CI077","2":"2024-04-30","3":"24","4":"43.9","5":"75.6"},{"1":"CI077","2":"2024-05-01","3":"24","4":"40.9","5":"80.1"},{"1":"CI077","2":"2024-05-02","3":"24","4":"47.6","5":"79.8"},{"1":"CI077","2":"2024-05-03","3":"24","4":"49.8","5":"78.5"},{"1":"CI077","2":"2024-05-04","3":"24","4":"44.0","5":"56.0"},{"1":"CI077","2":"2024-05-05","3":"24","4":"39.0","5":"64.0"},{"1":"CI077","2":"2024-05-06","3":"24","4":"37.7","5":"67.8"},{"1":"CI077","2":"2024-05-07","3":"24","4":"42.4","5":"75.0"},{"1":"CI077","2":"2024-05-08","3":"24","4":"50.8","5":"77.9"},{"1":"CI077","2":"2024-05-09","3":"24","4":"55.5","5":"82.7"},{"1":"CI077","2":"2024-05-10","3":"24","4":"47.4","5":"88.3"},{"1":"CI077","2":"2024-05-11","3":"24","4":"49.0","5":"83.2"},{"1":"CI077","2":"2024-05-12","3":"24","4":"49.9","5":"75.9"},{"1":"CI077","2":"2024-05-13","3":"24","4":"45.5","5":"73.6"},{"1":"CI077","2":"2024-05-14","3":"24","4":"48.7","5":"76.4"},{"1":"CI077","2":"2024-05-15","3":"24","4":"50.8","5":"75.8"},{"1":"CI077","2":"2024-05-16","3":"24","4":"51.9","5":"69.8"},{"1":"CI077","2":"2024-05-17","3":"24","4":"50.5","5":"75.2"},{"1":"CI077","2":"2024-05-18","3":"24","4":"52.2","5":"71.9"},{"1":"CI077","2":"2024-05-19","3":"24","4":"50.5","5":"73.2"},{"1":"CI077","2":"2024-05-20","3":"24","4":"44.7","5":"79.2"},{"1":"CI077","2":"2024-05-21","3":"24","4":"43.1","5":"85.4"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>

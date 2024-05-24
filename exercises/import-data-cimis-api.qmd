@@ -172,9 +172,6 @@ oakville_temp_wide_tbl <- oakville_temp_long_tbl |>
   mutate(loc_id = "CI077", period = "rp") |> 
   select(loc_id, period, date, tasmin, tasmax)
 
-# |> 
-#   relocate(tasmin_f, .before = tasmax_f)
-
 oakville_temp_wide_tbl
 ```
 

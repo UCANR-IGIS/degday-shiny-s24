@@ -13,6 +13,7 @@ welcome*.qmd
 exercises/*_cache*
 
 # Temporary ignores below:
+# now-almonds*
 # exercises/homework02*
 # my_synoptic_token.txt
 # /slides/agclim*

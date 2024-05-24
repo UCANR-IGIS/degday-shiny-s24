@@ -30,6 +30,9 @@ The table should have the following columns:
 - `tasmin`: minimum daily temperature  
 - `tasmax`: maximum daily temperature  
 
+![](./images/oakville_recent_past.png)
+
+
 :::
 
 \
@@ -293,7 +296,9 @@ stn_tas_stationdata <- stn_tas_lst$STATION[[i]]
 Extract the date-times:
 
 ```{r chunk20}
-obs_dt <- stn_tas_stationdata$OBSERVATIONS$date_time |> unlist() |> ymd_hms(tz = "America/Los_Angeles")
+obs_dt <- stn_tas_stationdata$OBSERVATIONS$date_time |> 
+  unlist() |> 
+  ymd_hms(tz = "America/Los_Angeles")
 
 ## Inspect the vector:
 class(obs_dt)
